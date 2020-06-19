@@ -263,9 +263,9 @@ class Outside : public Residence // Inheritance from Residence Class
 //  														  //
 // This class store the Lecturer data.  					  //
 // The base class came from Person.							  //
-// This class have a composition relationship wtih Course 	  //
+// This class have a composition relationship with Course 	  //
 // Class because they must have a Course sign in to. 		  //
-// This class will have a aggregation realtionship with		  //
+// This class will have a aggregation relationship with		  //
 // UTM and Outside, so it can be exist or not depending on    //
 // where the person live.									  //
 //============================================================//
@@ -385,6 +385,7 @@ class Lecturer : public Person // Inheritance from Person Class
 			}
 		}
 };
+
 
 //============================================================//
 //			      		Class Student				   		  //
@@ -534,6 +535,7 @@ class Student : public Person // Inheritance from Person Class
 		}
 };
 
+
 //============================================================//
 //			      		Class Staff 				   		  //
 //															  //
@@ -666,9 +668,13 @@ class Staff : public Person // Inheritance from Person Class
 	//															  //
 	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
+
 //============================================================//
+//						menu()								  //
 //					Input  = None							  //
 //					Output = Display Menu					  //
+//															  //
+// This Function will display the menu for the user to choose //
 //============================================================//
 
 void menu () // Function to Show Menu
@@ -685,29 +691,91 @@ void menu () // Function to Show Menu
 	cout << endl << "Choose what you want to do : ";
 }
 
-/*void addUndergraduate(Student *undergraduate, int &countUG)
+//============================================================//
+//						addUndergraduate()					  //
+//					Input  = undergraduate, countUG			  //
+//					Output = Adding New Input for UG		  //
+//															  //
+// This Function will add new entry for UG					  //
+//============================================================//
+
+void addUndergraduate(Student *&undergraduate, int &countUG)
 {
-	string name;
-	string metric;
+	string name; // Temporary variable for Undergraduate Name
+	string metric; // Temporary variable for Undergraduate Metric
 	
-	cout << "--==--==--==--==--==--==--==--==--==--" << endl;
-	cout << "Adding New Undergraduate Input" << endl;
-	cout << "--==--==--==--==--==--==--==--==--==--" << endl;
-	
-	cout << endl << endl << "Name : ";
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding new Undergraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	cout << "Name : ";
 	cin >> name;
 	cout << "Metric : ";
 	cin >> metric;
 	
-	if (undergraduate != 0)
+	try
 	{
-		cout << "OK" << endl;
+		if (undergraduate == 0)
+		throw "Empty!";
+		
+		Student *temp;
+		
+		temp = new Student[countUG+1];
+		
+		for (int i = 0; i < countUG; i++)
+		{
+			temp[i] = undergraduate[i];
+		}
+		
+		temp[countUG].setName(name);
+		temp[countUG].setMetric(metric);
+		
+		delete [] undergraduate;
+		
+		countUG++;
+		
+		undergraduate = temp;
 	}
-	else
+	catch (const char *msg)
 	{
-		cout << "NOT OK" << endl;
+		undergraduate= new Student[1];
+		undergraduate[0].setName(name);
+		undergraduate[0].setMetric(metric);
+		countUG++;
 	}
-}*/
+	
+	/*
+	if (undergraduate != 0) // IF it have been initialized
+	{
+		Student *temp;
+		
+		temp = new Student[countUG+1];
+		
+		for (int i = 0; i < countUG; i++)
+		{
+			temp[i] = undergraduate[i];
+		}
+		
+		temp[countUG].setName(name);
+		temp[countUG].setMetric(metric);
+		
+		delete [] undergraduate;
+		
+		countUG++;
+		
+		undergraduate = temp;
+	}
+	else // If it still empty
+	{
+		undergraduate= new Student[1];
+		undergraduate[0].setName(name);
+		undergraduate[0].setMetric(metric);
+		countUG++;
+	}
+	*/
+	
+	return;
+}
 // addPostgraduate(){}
 // addStaff(){}
 
@@ -715,7 +783,40 @@ void menu () // Function to Show Menu
 // deletePostgraduate(){}
 // deleteStaff(){}
 
-// displayUndergraduate(){}
+void displayUndergraduate(Student *undergraduate, int countUG)
+{
+	try
+	{
+		if (countUG == 0)
+		throw "There is no input!";
+		
+		cout << left << setw (5) << "No" << setw(15) << "Name" << setw(10) << "Metric" << endl;
+		for (int i = 0; i < countUG; i++)
+		{
+			cout << left << setw (5) << i+1 << setw(15) << undergraduate[i].getName() << setw(10) << undergraduate[i].getMetric() << endl;
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << msg;
+	}
+	
+	/*
+	if (countUG == 0)
+	{
+		cout << "There is no input!" << endl;
+		return;
+	}
+	else
+	{
+		cout << left << setw (5) << "No" << setw(15) << "Name" << setw(10) << "Metric" << endl;
+		for (int i = 0; i < countUG; i++)
+		{
+			cout << left << setw (5) << i+1 << setw(15) << undergraduate[i].getName() << setw(10) << undergraduate[i].getMetric() << endl;
+		}
+	}
+	*/
+}
 // displayPostgraduate(){}
 // displayStaff(){}
 
@@ -723,6 +824,16 @@ void menu () // Function to Show Menu
 int main ()
 {
 	int choice, choiceAdd, choiceDelete, choiceDisplay; // Variable for Choice
+	
+	Student *undergraduate = 0; // Pointer Variable for Undergraduate
+	//Student *postgraduate; // Pointer Variable for Postgraduate
+	//Lecturer *lecturer; // Pointer Variable for Lecturer
+	//Staff *staff; // Pointer Variable for Staff
+	
+	int countUG = 0; // Counter for Undergraduate
+	//int countPG = 0; // Counter for Postgraduate
+	//int countLecturer = 0; // Counter for Lecturer
+	//int countStaff = 0; // Counter for Staff
 	
 	//============================================================//
 	//			This Do While Loop will always display			  //
@@ -747,7 +858,9 @@ int main ()
 			//============================================================//
 			
 			case 1 :
-				cout << "ADD DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl;
+				cout << "ADD DATA" << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> ADD UNDERGRADUATE" << endl;
 				cout << "2> ADD POSTGRADUATE" << endl;
@@ -765,8 +878,8 @@ int main ()
 				switch (choiceAdd)
 				{
 					case 1 :
-						cout << "ADD UNDERGADUATESTUDENT DONE!!!" << endl;
-						// addUndergraduate();
+						//cout << "ADD UNDERGADUATESTUDENT DONE!!!" << endl;
+						addUndergraduate(undergraduate, countUG); // Function to add Undergraduate Data
 						// Function Object to add Undergraduate Student
 						break;
 					case 2 :
@@ -794,7 +907,9 @@ int main ()
 			//============================================================//
 			
 			case 2 :
+				cout <<"=-=-=-=-=-=-=-" << endl;
 				cout << "DELETE DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> DELETE UNDERGRADUATE" << endl;
 				cout << "2> DELETE POSTGRADUATE" << endl;
@@ -841,7 +956,9 @@ int main ()
 			//============================================================//
 			
 			case 3 :
+				cout <<"=-=-=-=-=-=-=-" << endl;
 				cout << "DISPLAY DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> DISPLAY UNDERGRADUATE" << endl;
 				cout << "2> DISPLAY POSTGRADUATE" << endl;
@@ -859,8 +976,8 @@ int main ()
 				switch (choiceDisplay)
 				{
 					case 1 :
-						cout << "DISPLAY UNDERGADUATESTUDENT DONE!!!" << endl;
-						// displayUndergraduate();
+						//cout << "DISPLAY UNDERGADUATESTUDENT DONE!!!" << endl;
+						displayUndergraduate(undergraduate, countUG);
 						// Function Object to delete Undergraduate Student
 						break;
 					case 2 :
