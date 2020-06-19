@@ -777,10 +777,12 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 	return;
 }
 // addPostgraduate(){}
+// addLecturer(){}
 // addStaff(){}
 
 // deleteUndergraduate(){}
 // deletePostgraduate(){}
+// deleteLecturer(){}
 // deleteStaff(){}
 
 void displayUndergraduate(Student *undergraduate, int countUG)
@@ -818,6 +820,7 @@ void displayUndergraduate(Student *undergraduate, int countUG)
 	*/
 }
 // displayPostgraduate(){}
+// displayLecturer(){}
 // displayStaff(){}
 
 
@@ -864,7 +867,8 @@ int main ()
 				
 				cout << "1> ADD UNDERGRADUATE" << endl;
 				cout << "2> ADD POSTGRADUATE" << endl;
-				cout << "3> ADD STAFF" << endl;
+				cout << "3> ADD LECTURER" << endl;
+				cout << "4> ADD STAFF" << endl;
 				
 				cout << endl << "Choose what data you want to Add :";
 				cin >> choiceAdd;
@@ -887,7 +891,12 @@ int main ()
 						// addPostgraduate();
 						// Function Object to add Postgraduate Student
 						break;
-					case 3  :
+					case 3 :
+						cout << "ADD LECTURER DONE!!!" << endl;
+						// addLecturer();
+						// Function Object to add Lecturer
+						break;
+					case 4 :
 						cout << "ADD STAFF DONE!!!" << endl;
 						// addStaff();
 						// Function Object to add Staff
@@ -913,6 +922,7 @@ int main ()
 				
 				cout << "1> DELETE UNDERGRADUATE" << endl;
 				cout << "2> DELETE POSTGRADUATE" << endl;
+				cout << "3> DELETE LECTURER" << endl;
 				cout << "3> DELETE STAFF" << endl;
 				
 				cout << endl << "Choose what data you want to Delete :";
@@ -936,7 +946,12 @@ int main ()
 						// deletePostgraduate();
 						// Function Object to delete Postgraduate Student
 						break;
-					case 3  :
+					case 3 :
+						cout << "DELETE LECTURER DONE!!!" << endl;
+						// deleteLecturer();
+						// Function Object to delete Lecturer
+						break;
+					case 4 :
 						cout << "DELETE STAFF DONE!!!" << endl;
 						// deleteStaff();
 						// Function Object to delete Staff
@@ -962,6 +977,7 @@ int main ()
 				
 				cout << "1> DISPLAY UNDERGRADUATE" << endl;
 				cout << "2> DISPLAY POSTGRADUATE" << endl;
+				cout << "3> DISPLAY LECTURER" << endl;
 				cout << "3> DISPLAY STAFF" << endl;
 				
 				cout << endl << "Choose what data you want to Display :";
@@ -978,17 +994,22 @@ int main ()
 					case 1 :
 						//cout << "DISPLAY UNDERGADUATESTUDENT DONE!!!" << endl;
 						displayUndergraduate(undergraduate, countUG);
-						// Function Object to delete Undergraduate Student
+						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
 						cout << "DISPLAY POSTGRADUATESTUDENT DONE!!!" << endl;
 						// displayPostgraduate();
-						// Function Object to delete Postgraduate Student
+						// Function Object to display Postgraduate Student
 						break;
-					case 3  :
+					case 3 :
+						cout << "DISPLAY LECTURER DONE!!!" << endl;
+						// displayLecturer();
+						// Function Object to display Lecturer
+						break;
+					case 4 :
 						cout << "DISPLAY STAFF DONE!!!" << endl;
 						// displayStaff();
-						// Function Object to delete Staff
+						// Function Object to display Staff
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
