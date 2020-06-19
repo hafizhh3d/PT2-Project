@@ -263,9 +263,9 @@ class Outside : public Residence // Inheritance from Residence Class
 //  														  //
 // This class store the Lecturer data.  					  //
 // The base class came from Person.							  //
-// This class have a composition relationship wtih Course 	  //
+// This class have a composition relationship with Course 	  //
 // Class because they must have a Course sign in to. 		  //
-// This class will have a aggregation realtionship with		  //
+// This class will have a aggregation relationship with		  //
 // UTM and Outside, so it can be exist or not depending on    //
 // where the person live.									  //
 //============================================================//
@@ -331,6 +331,11 @@ class Lecturer : public Person // Inheritance from Person Class
 		{
 			return course.getCode();
 		}
+		void allocateUTM() // Allocate UTM Class
+		{
+			kolej = new UTM;
+			address = 0;
+		}
 		string getUTMCountry() // Accessor for Lecturer UTM Country
 		{
 			return kolej->getCountry();
@@ -346,6 +351,11 @@ class Lecturer : public Person // Inheritance from Person Class
 		string getUTMBlock() // Accessor for Lecturer UTM Block
 		{
 			return kolej->getBlock();
+		}
+		void allocateOutside() // Allocate Outside Class
+		{
+			address = new Outside;
+			kolej = 0;
 		}
 		string getOutsideCountry() // Accessor for Lecturer Outside Country
 		{
@@ -369,7 +379,7 @@ class Lecturer : public Person // Inheritance from Person Class
 			cout << setw(20) << "Course" << ": " << course.getName() << endl;
 			cout << setw(20) << "Course Code" << ": " << course.getCode() << endl;
 			
-			if (kolej == NULL)
+			if (kolej == 0)
 			{
 				cout << setw(20) << "Country" << ": " << address->getCountry() << endl;
 				cout << setw(20) << "State" << ": " << address->getState() << endl;
@@ -385,6 +395,7 @@ class Lecturer : public Person // Inheritance from Person Class
 			}
 		}
 };
+
 
 //============================================================//
 //			      		Class Student				   		  //
@@ -434,6 +445,11 @@ class Student : public Person // Inheritance from Person Class
 		{
 			course.setCode(courseCode);
 		}
+		void allocateUTM() // Allocate UTM Class
+		{
+			kolej = new UTM;
+			address = 0;
+		}
 		void setUTMCountry(string country) // Mutator for Student UTM Country
 		{
 			this->kolej->setCountry(country);
@@ -449,6 +465,11 @@ class Student : public Person // Inheritance from Person Class
 		void setUTMBlock(string block) // Mutator for Student UTM Block
 		{
 			this->kolej->setBlock(block);
+		}
+		void allocateOutside() // Allocate Outside Class
+		{
+			address = new Outside;
+			kolej = 0;
 		}
 		void setOutsideCountry(string country) // Mutator for Student Outside Country
 		{
@@ -513,11 +534,12 @@ class Student : public Person // Inheritance from Person Class
 		void showInfo() // Overriden Function from Base Class Person
 		{
 			cout << left << setw(20) << "Name" << ": " << name << endl;
-			cout << setw(20) << "Metric ID" << ":" << metric << endl;
+			cout << setw(20) << "Metric ID" << ": " << metric << endl;
 			cout << setw(20) << "Course" << ": " << course.getName() << endl;
 			cout << setw(20) << "Course Code" << ": " << course.getCode() << endl;
 			
-			if (kolej == NULL)
+			
+			if (kolej == 0)
 			{
 				cout << setw(20) << "Country" << ": " << address->getCountry() << endl;
 				cout << setw(20) << "State" << ": " << address->getState() << endl;
@@ -531,8 +553,10 @@ class Student : public Person // Inheritance from Person Class
 				cout << setw(20) << "Kolej" << ": " << kolej->getKolej() << endl;
 				cout << setw(20) << "Block" << ": " << kolej->getBlock() << endl;
 			}
+			
 		}
 };
+
 
 //============================================================//
 //			      		Class Staff 				   		  //
@@ -570,6 +594,11 @@ class Staff : public Person // Inheritance from Person Class
 		{
 			this->department.setName(department);
 		}
+		void allocateUTM() // Allocate UTM Class
+		{
+			kolej = new UTM;
+			address = 0;
+		}
 		void setUTMCountry(string country) // Mutator for Staff UTM Country
 		{
 			this->kolej->setCountry(country);
@@ -585,6 +614,11 @@ class Staff : public Person // Inheritance from Person Class
 		void setUTMBlock(string block) // Mutator for Staff UTM Block
 		{
 			this->kolej->setBlock(block);
+		}
+		void allocateOutside() // Allocate Outside Class
+		{
+			address = new Outside;
+			kolej = 0;
 		}
 		void setOutsideCountry(string country) // Mutator for Staff Outside Country
 		{
@@ -643,7 +677,7 @@ class Staff : public Person // Inheritance from Person Class
 			cout << left << setw(20) << "Name" << ": " << name << endl;
 			cout << setw(20) << "Department" << ": " << department.getName() << endl;
 			
-			if (kolej == NULL)
+			if (kolej == 0)
 			{
 				cout << setw(20) << "Country" << ": " << address->getCountry() << endl;
 				cout << setw(20) << "State" << ": " << address->getState() << endl;
@@ -666,9 +700,13 @@ class Staff : public Person // Inheritance from Person Class
 	//															  //
 	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
+
 //============================================================//
+//						menu()								  //
 //					Input  = None							  //
 //					Output = Display Menu					  //
+//															  //
+// This Function will display the menu for the user to choose //
 //============================================================//
 
 void menu () // Function to Show Menu
@@ -685,22 +723,727 @@ void menu () // Function to Show Menu
 	cout << endl << "Choose what you want to do : ";
 }
 
-// addUndergraduate(){}
-// addPostgraduate(){}
-// addStaff(){}
+//============================================================//
+//						addUndergraduate()					  //
+//					Input  = *undergraduate, countUG		  //
+//					Output = Adding New Input for UG		  //
+//															  //
+// This Function will add new entry for UG.					  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already.						  //
+//============================================================//
+
+void addUndergraduate(Student *&undergraduate, int &countUG)
+{
+	int choice; // Variable for Choice
+	string name; // Temporary variable for Undergraduate Name
+	string metric; // Temporary variable for Undergraduate Metric
+	string courseName; // Temporary variable for Undergraduate Course Name
+	string courseCode; // Temporary variable for Undergraduate Course Code
+	string country; // Temporary variable for Undergraduate Country
+	string state; // Temporary variable for Undergraduate State
+	string kolej; // Temporary variable for Undergraduate Kolej
+	string block; // Temporary variable for Undergraduate Block
+	string city; // Temporary variable for Undergraduate City
+	string address; // Temporary variable for Undergraduate Address
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding New Undergraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	cout << "Name : ";
+	cin >> name; // User Input for Name
+	cout << "Metric : ";
+	cin >> metric; // User Input for Metric
+	cout << "Course Name : ";
+	cin >> courseName; // User Input for Course Name
+	cout << "Course Code : ";
+	cin >> courseCode; // User Input for Course Code
+	
+	cout << endl << endl;
+	cout << "1. Inside UTM" << endl;
+	cout << "2. Outside UTM" << endl;
+	cout << "Where do they live : "; // Asking the User for Choice of Living Place
+	cin >> choice; // User Input to determine Choice
+	
+	//================================//
+	// This Switch statements will determine which data need to be added 
+	// based on the choice what the user input. 
+	//
+	// If the user input 1 it will automatically set the Country to Malaysia
+	// and the State to Johor Bahru.
+	// If the user input 2 it will ask all of the data needed.
+	//================================//
+	
+	switch (choice)
+	{
+		//==================//
+		// Choice 1 is for the Undergraduate who is staying inside UTM.
+		// The Country will be automatically set to Malaysia and the 
+		// state will be set to Johor Bahru, so the user will only need
+		// to add the Kolej and Block data.
+		//==================//
+		
+		case 1 :
+			country = "Malaysia";
+			state = "Johor Bahru";
+			
+			cout << "Kolej : ";
+			cin >> kolej; // User Input for Kolej
+			cout << "Block : ";
+			cin >> block; // User Input for Block
+			break;
+			
+		//==================//
+		// Choice 2 is for the Undergraduate who is staying Outside UTM.
+		// The user will need to enter all of the required info from 
+		// country up to their address all by themselves, as it is not
+		// been set in the first time.
+		//==================//
+		case 2 :
+			cout << "Country : ";
+			cin >> country;
+			cout << "State : ";
+			cin >> state;
+			cout << "City : ";
+			cin >> city;
+			cout << "Address : ";
+			cin >> address;
+			break;
+		//==================//
+		// The default option is when the user input the choice that
+		// is not 1 or 2. It will terminate the addUndergraduate
+		// function and go back to the main menu.
+		//==================// 
+		default :
+			cout << "Input Not Recognized!" << endl;
+			cout << "Going back to Main Menu..." << endl;
+			return;
+	}
+	
+	try
+	{
+		if (undergraduate == 0)
+		throw "Empty!";
+		
+		Student *temp;
+		
+		temp = new Student[countUG+1];
+		
+		for (int i = 0; i < countUG; i++)
+		{
+			temp[i] = undergraduate[i];
+		}
+		
+		temp[countUG].setName(name);
+		temp[countUG].setMetric(metric);
+		temp[countUG].setCourseName(courseName);
+		temp[countUG].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			temp[countUG].allocateUTM();
+			temp[countUG].setUTMCountry(country);
+			temp[countUG].setUTMState(state);
+			temp[countUG].setUTMKolej(kolej);
+			temp[countUG].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			temp[countUG].allocateOutside();
+			temp[countUG].setOutsideCountry(country);
+			temp[countUG].setOutsideState(state);
+			temp[countUG].setOutsideCity(city);
+			temp[countUG].setOutsideAddress(address);
+		}
+		
+		delete [] undergraduate;
+		
+		countUG++;
+		
+		undergraduate = temp;
+	}
+	catch (const char *msg)
+	{
+		undergraduate= new Student[1];
+		
+		undergraduate[0].setName(name);
+		undergraduate[0].setMetric(metric);
+		undergraduate[0].setCourseName(courseName);
+		undergraduate[0].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			undergraduate[0].allocateUTM();
+			undergraduate[0].setUTMCountry(country);
+			undergraduate[0].setUTMState(state);
+			undergraduate[0].setUTMKolej(kolej);
+			undergraduate[0].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			undergraduate[0].allocateOutside();
+			undergraduate[0].setOutsideCountry(country);
+			undergraduate[0].setOutsideState(state);
+			undergraduate[0].setOutsideCity(city);
+			undergraduate[0].setOutsideAddress(address);
+		}
+		
+		countUG++;
+	}
+	
+	return;
+}
+
+//============================================================//
+//						addPostgraduate()					  //
+//					Input  = *postgraduate, countPG			  //
+//					Output = Adding New Input for PG		  //
+//															  //
+// This Function will add new entry for PG.					  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already.						  //
+//============================================================//
+
+void addPostgraduate(Student *&postgraduate, int &countPG)
+{
+	int choice; // Variable for Choice
+	string name; // Temporary variable for Postgraduate Name
+	string metric; // Temporary variable for Postgraduate Metric
+	string courseName; // Temporary variable for Postgraduate Course Name
+	string courseCode; // Temporary variable for Postgraduate Course Code
+	string country; // Temporary variable for Postgraduate Country
+	string state; // Temporary variable for Postgraduate State
+	string kolej; // Temporary variable for Postgraduate Kolej
+	string block; // Temporary variable for Postgraduate Block
+	string city; // Temporary variable for Postgraduate City
+	string address; // Temporary variable for Postgraduate Address
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding New Postgraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	cout << "Name : ";
+	cin >> name; // User Input for Name
+	cout << "Metric : ";
+	cin >> metric; // User Input for Metric
+	cout << "Course Name : ";
+	cin >> courseName; // User Input for Course Name
+	cout << "Course Code : ";
+	cin >> courseCode; // User Input for Course Code
+	
+	cout << endl << endl;
+	cout << "1. Inside UTM" << endl;
+	cout << "2. Outside UTM" << endl;
+	cout << "Where do they live : "; // Asking the User for Choice of Living Place
+	cin >> choice; // User Input to determine Choice
+	
+	//================================//
+	// This Switch statements will determine which data need to be added 
+	// based on the choice what the user input. 
+	//
+	// If the user input 1 it will automatically set the Country to Malaysia
+	// and the State to Johor Bahru.
+	// If the user input 2 it will ask all of the data needed.
+	//================================//
+	
+	switch (choice)
+	{
+		//==================//
+		// Choice 1 is for the Postgraduate who is staying inside UTM.
+		// The Country will be automatically set to Malaysia and the 
+		// state will be set to Johor Bahru, so the user will only need
+		// to add the Kolej and Block data.
+		//==================//
+		
+		case 1 :
+			country = "Malaysia";
+			state = "Johor Bahru";
+			
+			cout << "Kolej : ";
+			cin >> kolej; // User Input for Kolej
+			cout << "Block : ";
+			cin >> block; // User Input for Block
+			break;
+			
+		//==================//
+		// Choice 2 is for the Postgraduate who is staying Outside UTM.
+		// The user will need to enter all of the required info from 
+		// country up to their address all by themselves, as it is not
+		// been set in the first time.
+		//==================//
+		case 2 :
+			cout << "Country : ";
+			cin >> country;
+			cout << "State : ";
+			cin >> state;
+			cout << "City : ";
+			cin >> city;
+			cout << "Address : ";
+			cin >> address;
+			break;
+		//==================//
+		// The default option is when the user input the choice that
+		// is not 1 or 2. It will terminate the addUndergraduate
+		// function and go back to the main menu.
+		//==================// 
+		default :
+			cout << "Input Not Recognized!" << endl;
+			cout << "Going back to Main Menu..." << endl;
+			return;
+	}
+	
+	try
+	{
+		if (postgraduate == 0)
+		throw "Empty!";
+		
+		Student *temp;
+		
+		temp = new Student[countPG+1];
+		
+		for (int i = 0; i < countPG; i++)
+		{
+			temp[i] = postgraduate[i];
+		}
+		
+		temp[countPG].setName(name);
+		temp[countPG].setMetric(metric);
+		temp[countPG].setCourseName(courseName);
+		temp[countPG].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			temp[countPG].allocateUTM();
+			temp[countPG].setUTMCountry(country);
+			temp[countPG].setUTMState(state);
+			temp[countPG].setUTMKolej(kolej);
+			temp[countPG].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			temp[countPG].allocateOutside();
+			temp[countPG].setOutsideCountry(country);
+			temp[countPG].setOutsideState(state);
+			temp[countPG].setOutsideCity(city);
+			temp[countPG].setOutsideAddress(address);
+		}
+		
+		delete [] postgraduate;
+		
+		countPG++;
+		
+		postgraduate = temp;
+	}
+	catch (const char *msg)
+	{
+		postgraduate= new Student[1];
+		
+		postgraduate[0].setName(name);
+		postgraduate[0].setMetric(metric);
+		postgraduate[0].setCourseName(courseName);
+		postgraduate[0].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			postgraduate[0].allocateUTM();
+			postgraduate[0].setUTMCountry(country);
+			postgraduate[0].setUTMState(state);
+			postgraduate[0].setUTMKolej(kolej);
+			postgraduate[0].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			postgraduate[0].allocateOutside();
+			postgraduate[0].setOutsideCountry(country);
+			postgraduate[0].setOutsideState(state);
+			postgraduate[0].setOutsideCity(city);
+			postgraduate[0].setOutsideAddress(address);
+		}
+		
+		countPG++;
+	}
+	
+	return;
+}
+
+//============================================================//
+//						addLecturer()						  //
+//					Input  = *lecturer, countLecturer		  //
+//					Output = Adding New Input for Lecturer	  //
+//															  //
+// This Function will add new entry for Lecturer.			  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already.						  //
+//============================================================//
+
+void addLecturer(Lecturer *&lecturer, int &countLecturer)
+{
+	int choice; // Variable for Choice
+	string name; // Temporary variable for Lecturer Name
+	string courseName; // Temporary variable for Lecturer Course Name
+	string courseCode; // Temporary variable for Lecturer Course Code
+	string country; // Temporary variable for Lecturer Country
+	string state; // Temporary variable for Lecturer State
+	string kolej; // Temporary variable for Lecturer Kolej
+	string block; // Temporary variable for Lecturer Block
+	string city; // Temporary variable for Lecturer City
+	string address; // Temporary variable for Lecturer Address
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding New Postgraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	cout << "Name : ";
+	cin >> name; // User Input for Name
+	cout << "Course Name : ";
+	cin >> courseName; // User Input for Course Name
+	cout << "Course Code : ";
+	cin >> courseCode; // User Input for Course Code
+	
+	cout << endl << endl;
+	cout << "1. Inside UTM" << endl;
+	cout << "2. Outside UTM" << endl;
+	cout << "Where do they live : "; // Asking the User for Choice of Living Place
+	cin >> choice; // User Input to determine Choice
+	
+	//================================//
+	// This Switch statements will determine which data need to be added 
+	// based on the choice what the user input. 
+	//
+	// If the user input 1 it will automatically set the Country to Malaysia
+	// and the State to Johor Bahru.
+	// If the user input 2 it will ask all of the data needed.
+	//================================//
+	
+	switch (choice)
+	{
+		//==================//
+		// Choice 1 is for the Lecturer who is staying inside UTM.
+		// The Country will be automatically set to Malaysia and the 
+		// state will be set to Johor Bahru, so the user will only need
+		// to add the Kolej and Block data.
+		//==================//
+		
+		case 1 :
+			country = "Malaysia";
+			state = "Johor Bahru";
+			
+			cout << "Kolej : ";
+			cin >> kolej; // User Input for Kolej
+			cout << "Block : ";
+			cin >> block; // User Input for Block
+			break;
+			
+		//==================//
+		// Choice 2 is for the Lecturer who is staying Outside UTM.
+		// The user will need to enter all of the required info from 
+		// country up to their address all by themselves, as it is not
+		// been set in the first time.
+		//==================//
+		case 2 :
+			cout << "Country : ";
+			cin >> country;
+			cout << "State : ";
+			cin >> state;
+			cout << "City : ";
+			cin >> city;
+			cout << "Address : ";
+			cin >> address;
+			break;
+		//==================//
+		// The default option is when the user input the choice that
+		// is not 1 or 2. It will terminate the addUndergraduate
+		// function and go back to the main menu.
+		//==================// 
+		default :
+			cout << "Input Not Recognized!" << endl;
+			cout << "Going back to Main Menu..." << endl;
+			return;
+	}
+	
+	try
+	{
+		if (lecturer == 0)
+		throw "Empty!";
+		
+		Lecturer *temp;
+		
+		temp = new Lecturer[countLecturer+1];
+		
+		for (int i = 0; i < countLecturer; i++)
+		{
+			temp[i] = lecturer[i];
+		}
+		
+		temp[countLecturer].setName(name);
+		temp[countLecturer].setCourseName(courseName);
+		temp[countLecturer].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			temp[countLecturer].allocateUTM();
+			temp[countLecturer].setUTMCountry(country);
+			temp[countLecturer].setUTMState(state);
+			temp[countLecturer].setUTMKolej(kolej);
+			temp[countLecturer].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			temp[countLecturer].allocateOutside();
+			temp[countLecturer].setOutsideCountry(country);
+			temp[countLecturer].setOutsideState(state);
+			temp[countLecturer].setOutsideCity(city);
+			temp[countLecturer].setOutsideAddress(address);
+		}
+		
+		delete [] lecturer;
+		
+		countLecturer++;
+		
+		lecturer = temp;
+	}
+	catch (const char *msg)
+	{
+		lecturer = new Lecturer[1];
+		
+		lecturer[0].setName(name);
+		lecturer[0].setCourseName(courseName);
+		lecturer[0].setCourseCode(courseCode);
+		
+		if (choice == 1)
+		{
+			lecturer[0].allocateUTM();
+			lecturer[0].setUTMCountry(country);
+			lecturer[0].setUTMState(state);
+			lecturer[0].setUTMKolej(kolej);
+			lecturer[0].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			lecturer[0].allocateOutside();
+			lecturer[0].setOutsideCountry(country);
+			lecturer[0].setOutsideState(state);
+			lecturer[0].setOutsideCity(city);
+			lecturer[0].setOutsideAddress(address);
+		}
+		
+		countLecturer++;
+	}
+	
+	return;
+}
+
+//============================================================//
+//						addStaff()							  //
+//					Input  = *staff, countStaff	 			  //
+//					Output = Adding New Input for Staff		  //
+//															  //
+// This Function will add new entry for Staff.				  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already.						  //
+//============================================================//
+
+void addStaff(Staff *&staff, int &countStaff)
+{
+	int choice; // Variable for Choice
+	string name; // Temporary variable for Staff Name
+	string department; // Temporary variable for Staff Departmemt
+	string country; // Temporary variable for Staff Country
+	string state; // Temporary variable for Staff State
+	string kolej; // Temporary variable for Staff Kolej
+	string block; // Temporary variable for Staff Block
+	string city; // Temporary variable for Staff City
+	string address; // Temporary variable for Staff Address
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding New Staff Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	cout << "Name : ";
+	cin >> name; // User Input for Name
+	cout << "Department : ";
+	cin >> department; // User Input for Department
+	
+	cout << endl << endl;
+	cout << "1. Inside UTM" << endl;
+	cout << "2. Outside UTM" << endl;
+	cout << "Where do they live : "; // Asking the User for Choice of Living Place
+	cin >> choice; // User Input to determine Choice
+	
+	//================================//
+	// This Switch statements will determine which data need to be added 
+	// based on the choice what the user input. 
+	//
+	// If the user input 1 it will automatically set the Country to Malaysia
+	// and the State to Johor Bahru.
+	// If the user input 2 it will ask all of the data needed.
+	//================================//
+	
+	switch (choice)
+	{
+		//==================//
+		// Choice 1 is for the Staff who is staying inside UTM.
+		// The Country will be automatically set to Malaysia and the 
+		// state will be set to Johor Bahru, so the user will only need
+		// to add the Kolej and Block data.
+		//==================//
+		
+		case 1 :
+			country = "Malaysia";
+			state = "Johor Bahru";
+			
+			cout << "Kolej : ";
+			cin >> kolej; // User Input for Kolej
+			cout << "Block : ";
+			cin >> block; // User Input for Block
+			break;
+			
+		//==================//
+		// Choice 2 is for the Staff who is staying Outside UTM.
+		// The user will need to enter all of the required info from 
+		// country up to their address all by themselves, as it is not
+		// been set in the first time.
+		//==================//
+		case 2 :
+			cout << "Country : ";
+			cin >> country;
+			cout << "State : ";
+			cin >> state;
+			cout << "City : ";
+			cin >> city;
+			cout << "Address : ";
+			cin >> address;
+			break;
+		//==================//
+		// The default option is when the user input the choice that
+		// is not 1 or 2. It will terminate the addStaff
+		// function and go back to the main menu.
+		//==================// 
+		default :
+			cout << "Input Not Recognized!" << endl;
+			cout << "Going back to Main Menu..." << endl;
+			return;
+	}
+	
+	try
+	{
+		if (staff == 0)
+		throw "Empty!";
+		
+		Staff *temp;
+		
+		temp = new Staff[countStaff+1];
+		
+		for (int i = 0; i < countStaff; i++)
+		{
+			temp[i] = staff[i];
+		}
+		
+		temp[countStaff].setName(name);
+		temp[countStaff].setDepartment(department);
+		
+		if (choice == 1)
+		{
+			temp[countStaff].allocateUTM();
+			temp[countStaff].setUTMCountry(country);
+			temp[countStaff].setUTMState(state);
+			temp[countStaff].setUTMKolej(kolej);
+			temp[countStaff].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			temp[countStaff].allocateOutside();
+			temp[countStaff].setOutsideCountry(country);
+			temp[countStaff].setOutsideState(state);
+			temp[countStaff].setOutsideCity(city);
+			temp[countStaff].setOutsideAddress(address);
+		}
+		
+		delete [] staff;
+		
+		countStaff++;
+		
+		staff = temp;
+	}
+	catch (const char *msg)
+	{
+		staff = new Staff[1];
+		
+		staff[0].setName(name);
+		staff[0].setDepartment(department);
+		
+		if (choice == 1)
+		{
+			staff[0].allocateUTM();
+			staff[0].setUTMCountry(country);
+			staff[0].setUTMState(state);
+			staff[0].setUTMKolej(kolej);
+			staff[0].setUTMBlock(block);
+		}
+		else if (choice == 2)
+		{
+			staff[0].allocateOutside();
+			staff[0].setOutsideCountry(country);
+			staff[0].setOutsideState(state);
+			staff[0].setOutsideCity(city);
+			staff[0].setOutsideAddress(address);
+		}
+		
+		countStaff++;
+	}
+	
+	return;
+}
 
 // deleteUndergraduate(){}
 // deletePostgraduate(){}
+// deleteLecturer(){}
 // deleteStaff(){}
 
-// displayUndergraduate(){}
+void displayUndergraduate(Student *undergraduate, int countUG)
+{
+	
+	try
+	{
+		if (countUG == 0)
+		throw "There is no input!";
+		
+		
+		for (int i = 0; i < countUG; i++)
+		{
+			cout << endl << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			cout << "Data " << i+1 << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			undergraduate[i].showInfo();
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << endl;
+		cout << msg << endl;
+		cout << "Going Back to Main Menu..." << endl;
+	}
+}
 // displayPostgraduate(){}
+// displayLecturer(){}
 // displayStaff(){}
 
 
 int main ()
 {
 	int choice, choiceAdd, choiceDelete, choiceDisplay; // Variable for Choice
+	
+	Student *undergraduate = 0; // Pointer Variable for Undergraduate and make it point to NULL
+	Student *postgraduate = 0; // Pointer Variable for Postgraduate and make it point to NULL
+	Lecturer *lecturer = 0; // Pointer Variable for Lecturer and make it point to NULL
+	Staff *staff = 0; // Pointer Variable for Staff and make it point to NULL
+	
+	int countUG = 0; // Counter for Undergraduate
+	int countPG = 0; // Counter for Postgraduate
+	int countLecturer = 0; // Counter for Lecturer
+	int countStaff = 0; // Counter for Staff
 	
 	//============================================================//
 	//			This Do While Loop will always display			  //
@@ -725,13 +1468,16 @@ int main ()
 			//============================================================//
 			
 			case 1 :
-				cout << "ADD DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl;
+				cout << "ADD DATA" << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> ADD UNDERGRADUATE" << endl;
 				cout << "2> ADD POSTGRADUATE" << endl;
-				cout << "3> ADD STAFF" << endl;
+				cout << "3> ADD LECTURER" << endl;
+				cout << "4> ADD STAFF" << endl;
 				
-				cout << endl << "Choose what data you want to Add :";
+				cout << endl << "Choose what data you want to Add : ";
 				cin >> choiceAdd;
 				
 				//============================================================//
@@ -743,19 +1489,16 @@ int main ()
 				switch (choiceAdd)
 				{
 					case 1 :
-						cout << "ADD UNDERGADUATESTUDENT DONE!!!" << endl;
-						// addUndergraduate();
-						// Function Object to add Undergraduate Student
+						addUndergraduate(undergraduate, countUG); // Function to add Undergraduate Data
 						break;
 					case 2 :
-						cout << "ADD POSTGRADUATESTUDENT DONE!!!" << endl;
-						// addPostgraduate();
-						// Function Object to add Postgraduate Student
+						addPostgraduate(postgraduate, countPG); // Function to add Postgraduate Data
 						break;
-					case 3  :
-						cout << "ADD STAFF DONE!!!" << endl;
-						// addStaff();
-						// Function Object to add Staff
+					case 3 :
+						addLecturer(lecturer, countLecturer); // Function to add Lecturer Data
+						break;
+					case 4 :
+						addStaff(staff, countStaff); // Function to add Staff Data
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
@@ -772,13 +1515,16 @@ int main ()
 			//============================================================//
 			
 			case 2 :
+				cout <<"=-=-=-=-=-=-=-" << endl;
 				cout << "DELETE DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> DELETE UNDERGRADUATE" << endl;
 				cout << "2> DELETE POSTGRADUATE" << endl;
-				cout << "3> DELETE STAFF" << endl;
+				cout << "3> DELETE LECTURER" << endl;
+				cout << "4> DELETE STAFF" << endl;
 				
-				cout << endl << "Choose what data you want to Delete :";
+				cout << endl << "Choose what data you want to Delete : ";
 				cin >> choiceDelete;
 				
 				//============================================================//
@@ -799,7 +1545,12 @@ int main ()
 						// deletePostgraduate();
 						// Function Object to delete Postgraduate Student
 						break;
-					case 3  :
+					case 3 :
+						cout << "DELETE LECTURER DONE!!!" << endl;
+						// deleteLecturer();
+						// Function Object to delete Lecturer
+						break;
+					case 4 :
 						cout << "DELETE STAFF DONE!!!" << endl;
 						// deleteStaff();
 						// Function Object to delete Staff
@@ -819,13 +1570,16 @@ int main ()
 			//============================================================//
 			
 			case 3 :
+				cout <<"=-=-=-=-=-=-=-" << endl;
 				cout << "DISPLAY DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
 				
 				cout << "1> DISPLAY UNDERGRADUATE" << endl;
 				cout << "2> DISPLAY POSTGRADUATE" << endl;
-				cout << "3> DISPLAY STAFF" << endl;
+				cout << "3> DISPLAY LECTURER" << endl;
+				cout << "4> DISPLAY STAFF" << endl;
 				
-				cout << endl << "Choose what data you want to Display :";
+				cout << endl << "Choose what data you want to Display : ";
 				cin >> choiceDisplay;
 				
 				//============================================================//
@@ -837,19 +1591,17 @@ int main ()
 				switch (choiceDisplay)
 				{
 					case 1 :
-						cout << "DISPLAY UNDERGADUATESTUDENT DONE!!!" << endl;
-						// displayUndergraduate();
-						// Function Object to delete Undergraduate Student
+						displayUndergraduate(undergraduate, countUG); // Display the list of Undergraduate 
+						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
-						cout << "DISPLAY POSTGRADUATESTUDENT DONE!!!" << endl;
-						// displayPostgraduate();
-						// Function Object to delete Postgraduate Student
+						displayPostgraduate(); // Display the list of Postgraduate
 						break;
-					case 3  :
-						cout << "DISPLAY STAFF DONE!!!" << endl;
-						// displayStaff();
-						// Function Object to delete Staff
+					case 3 :
+						displayLecturer(); // Display the list of Lecturer
+						break;
+					case 4 :
+						displayStaff(); // Display the list of Staff
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
