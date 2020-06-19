@@ -380,18 +380,291 @@ class Lecturer : public Person // Inheritance from Person Class
 			{
 				cout << setw(20) << "Country" << ": " << kolej->getCountry() << endl;
 				cout << setw(20) << "State" << ": " << kolej->getState() << endl;
-				cout << setw(20) << "City" << ": " << kolej->getKolej() << endl;
-				cout << setw(20) << "Address" << ": " << kolej->getBlock() << endl;
+				cout << setw(20) << "Kolej" << ": " << kolej->getKolej() << endl;
+				cout << setw(20) << "Block" << ": " << kolej->getBlock() << endl;
 			}
 		}
 };
 
-// ADD FROM HERE //
-//===================//
+//============================================================//
+//			      		Class Student				   		  //
+//															  //
+// Class Relation : Person									  //
+// Relationship : Polymorphism, Inheritance					  //
+//															  //
+// Class Relation : Course									  //
+// Relationship : Composition								  //
+//															  //
+// Class Relation : UTM, Outside							  //
+// Realtionship : Aggregation								  // 
+//  														  //
+// This class store the Student data.  		     			  //
+// The base class came from Person.							  //
+// This class have a composition relationship with Course 	  //
+// Class because they must have a Course sign in to. 		  //
+// This class will have a aggregation relationship with		  //
+// UTM and Outside, so it can be exist or not depending on    //
+// where the person live.									  //
+//============================================================//
 
+class Student : public Person // Inheritance from Person Class
+{
+	private :
+		string metric; // Variable for Student Metric ID
+		Course course; // Variable for Student Course
+		UTM *kolej; // Pointer Variable for Student UTM Address
+		Outside *address; // Pointer Variable for Student Outside UTM Address
+	public :  
+		Student (string metric = "", string name = "", string courseName = "", string courseCode = "", UTM *kolejUTM = NULL, Outside *addressNonUTM = NULL) : course(courseName, courseCode) // Default Constructor for Student Class with Compositition
+		{
+			this->name = name;
+			this->metric = metric;
+			this->kolej = kolejUTM;
+			this->address = addressNonUTM;
+		}
+		void setMetric(string metric) // Mutator for Student Metric ID
+		{
+			this->metric = metric;
+		}
+		void setCourseName(string courseName) // Mutator for Student Course Name
+		{
+			course.setName(courseName);
+		}
+		void setCourseCode(string courseCode) // Mutator for Student Course Code
+		{
+			course.setCode(courseCode);
+		}
+		void setUTMCountry(string country) // Mutator for Student UTM Country
+		{
+			this->kolej->setCountry(country);
+		}
+		void setUTMState(string state) // Mutator for Student UTM State
+		{
+			this->kolej->setState(state);
+		}
+		void setUTMKolej(string kolej) // Mutator for Student UTM Kolej
+		{
+			this->kolej->setKolej(kolej);
+		}
+		void setUTMBlock(string block) // Mutator for Student UTM Block
+		{
+			this->kolej->setBlock(block);
+		}
+		void setOutsideCountry(string country) // Mutator for Student Outside Country
+		{
+			this->address->setCountry(country);
+		}
+		void setOutsideState(string state) // Mutator for Student Outside State
+		{
+			this->address->setState(state);
+		}
+		void setOutsideAddress(string address) // Mutator for Student Outside Address
+		{
+			this->address->setAddres(address);
+		}
+		void setOutsideCity(string city) // Mutator for Student Outside City
+		{
+			this->address->setCity(city);
+		}
+		string getMetric() // Accessor for Student Metric ID
+		{
+			return metric;
+		}
+		string getCourseName() // Accessor for Student Course Name
+		{
+			return course.getName();
+		}
+		string getCourseCode() // Accessor for Student Course Code
+		{
+			return course.getCode();
+		}
+		string getUTMCountry() // Accessor for Student UTM Country
+		{
+			return kolej->getCountry();
+		}
+		string getUTMState() // Accessor for Student UTM State
+		{
+			return kolej->getState();
+		}
+		string getUTMKolej() // Accessor for Student UTM Kolej
+		{
+			return kolej->getKolej();
+		}
+		string getUTMBlock() // Accessor for Student UTM Block
+		{
+			return kolej->getBlock();
+		}
+		string getOutsideCountry() // Accessor for Student Outside Country
+		{
+			return address->getCountry();
+		}
+		string getOutsideState() // Accessor for Student Outside State
+		{
+			return address->getState();
+		}
+		string getOutsideAddress() // Accessor for Student Outside Address
+		{
+			return address->getAddress();
+		}
+		string getOutsideCity() // Accessor for Student Outside City
+		{
+			return address->getCity();
+		}
+		void showInfo() // Overriden Function from Base Class Person
+		{
+			cout << left << setw(20) << "Name" << ": " << name << endl;
+			cout << setw(20) << "Metric ID" << ":" << metric << endl;
+			cout << setw(20) << "Course" << ": " << course.getName() << endl;
+			cout << setw(20) << "Course Code" << ": " << course.getCode() << endl;
+			
+			if (kolej == NULL)
+			{
+				cout << setw(20) << "Country" << ": " << address->getCountry() << endl;
+				cout << setw(20) << "State" << ": " << address->getState() << endl;
+				cout << setw(20) << "City" << ": " << address->getCity() << endl;
+				cout << setw(20) << "Address" << ": " << address->getAddress() << endl;
+			}
+			else
+			{
+				cout << setw(20) << "Country" << ": " << kolej->getCountry() << endl;
+				cout << setw(20) << "State" << ": " << kolej->getState() << endl;
+				cout << setw(20) << "Kolej" << ": " << kolej->getKolej() << endl;
+				cout << setw(20) << "Block" << ": " << kolej->getBlock() << endl;
+			}
+		}
+};
 
-//====================//
-// NO MORE THAN HERE //
+//============================================================//
+//			      		Class Staff 				   		  //
+//															  //
+// Class Relation : Person									  //
+// Relationship : Polymorphism, Inheritance					  //
+//															  //
+// Class Relation : Department								  //
+// Relationship : Composition  								  //
+//															  //
+// Class Relation : UTM, Outside							  //
+// Realtionship : Aggregation								  // 
+//  														  //
+// This class store the Staff data.  	    				  //
+// The base class came from Person.							  //
+// This class will have a aggregation relationship with		  //
+// UTM and Outside, so it can be exist or not depending on    //
+// where the person live.									  //
+//============================================================//
+
+class Staff : public Person // Inheritance from Person Class
+{
+	private :
+		Department department; // Variable for Staff Department
+		UTM *kolej; // Pointer Variable for Staff UTM Address
+		Outside *address; // Pointer Variable for Staff Outside UTM Address
+	public :
+		Staff (string name = "", string departmentName = "", UTM *kolejUTM = NULL, Outside *addressNonUTM = NULL) : department(departmentName) // Default Constructor for Staff Class
+		{
+			this->name = name;
+			this->kolej = kolejUTM;
+			this->address = addressNonUTM;
+		}
+		void setDepartment(string department) // Mutator for Staff Department
+		{
+			this->department.setName(department);
+		}
+		void setUTMCountry(string country) // Mutator for Staff UTM Country
+		{
+			this->kolej->setCountry(country);
+		}
+		void setUTMState(string state) // Mutator for Staff UTM State
+		{
+			this->kolej->setState(state);
+		}
+		void setUTMKolej(string kolej) // Mutator for Staff UTM Kolej
+		{
+			this->kolej->setKolej(kolej);
+		}
+		void setUTMBlock(string block) // Mutator for Staff UTM Block
+		{
+			this->kolej->setBlock(block);
+		}
+		void setOutsideCountry(string country) // Mutator for Staff Outside Country
+		{
+			this->address->setCountry(country);
+		}
+		void setOutsideState(string state) // Mutator for Staff Outside State
+		{
+			this->address->setState(state);
+		}
+		void setOutsideAddress(string address) // Mutator for Staff Outside Address
+		{
+			this->address->setAddres(address);
+		}
+		void setOutsideCity(string city) // Mutator for Staff Outside City
+		{
+			this->address->setCity(city);
+		}
+		string getDepartment() // Accessor for Staff Department
+		{
+			return department.getName();
+		}
+		string getUTMCountry() // Accessor for Staff UTM Country
+		{
+			return kolej->getCountry();
+		}
+		string getUTMState() // Accessor for Staff UTM State
+		{
+			return kolej->getState();
+		}
+		string getUTMKolej() // Accessor for Staff UTM Kolej
+		{
+			return kolej->getKolej();
+		}
+		string getUTMBlock() // Accessor for Staff UTM Block
+		{
+			return kolej->getBlock();
+		}
+		string getOutsideCountry() // Accessor for Staff Outside Country
+		{
+			return address->getCountry();
+		}
+		string getOutsideState() // Accessor for Staff Outside State
+		{
+			return address->getState();
+		}
+		string getOutsideAddress() // Accessor for Staff Outside Address
+		{
+			return address->getAddress();
+		}
+		string getOutsideCity() // Accessor for Staff Outside City
+		{
+			return address->getCity();
+		}
+		void showInfo() // Overriden Function from Base Class Person
+		{
+			cout << left << setw(20) << "Name" << ": " << name << endl;
+			cout << setw(20) << "Department" << ": " << department.getName() << endl;
+			
+			if (kolej == NULL)
+			{
+				cout << setw(20) << "Country" << ": " << address->getCountry() << endl;
+				cout << setw(20) << "State" << ": " << address->getState() << endl;
+				cout << setw(20) << "City" << ": " << address->getCity() << endl;
+				cout << setw(20) << "Address" << ": " << address->getAddress() << endl;
+			}
+			else
+			{
+				cout << setw(20) << "Country" << ": " << kolej->getCountry() << endl;
+				cout << setw(20) << "State" << ": " << kolej->getState() << endl;
+				cout << setw(20) << "Kolej" << ": " << kolej->getKolej() << endl;
+				cout << setw(20) << "Block" << ": " << kolej->getBlock() << endl;
+			}
+		}
+};
+
+	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
+	//															  //
+	//					FUNCTION FOR MAIN						  //
+	//															  //
+	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
 //============================================================//
 //					Input  = None							  //
