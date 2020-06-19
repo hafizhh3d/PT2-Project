@@ -685,7 +685,29 @@ void menu () // Function to Show Menu
 	cout << endl << "Choose what you want to do : ";
 }
 
-// addUndergraduate(){}
+/*void addUndergraduate(Student *undergraduate, int &countUG)
+{
+	string name;
+	string metric;
+	
+	cout << "--==--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Adding New Undergraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--==--" << endl;
+	
+	cout << endl << endl << "Name : ";
+	cin >> name;
+	cout << "Metric : ";
+	cin >> metric;
+	
+	if (undergraduate != 0)
+	{
+		cout << "OK" << endl;
+	}
+	else
+	{
+		cout << "NOT OK" << endl;
+	}
+}*/
 // addPostgraduate(){}
 // addStaff(){}
 
