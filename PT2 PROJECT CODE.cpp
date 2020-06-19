@@ -1401,9 +1401,25 @@ void addStaff(Staff *&staff, int &countStaff)
 // deleteLecturer(){}
 // deleteStaff(){}
 
+//============================================================//
+//					displayUndergraduate()					  //
+//					Input  = *undergraduate, countUG	 	  //
+//					Output = Displaying Data of Undergraduate //
+//															  //
+// This Function will display the data that is stored in	  //
+// Undergraduate array.
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already.						  //
+//============================================================//
+
 void displayUndergraduate(Student *undergraduate, int countUG)
 {
-	
+	//======================================//
+	// This execption handling is used to check
+	// wheter the Undergraduate have input or not.
+	// If it has no input it will throw the message
+	// and go back to main menu.
+	//======================================//
 	try
 	{
 		if (countUG == 0)
