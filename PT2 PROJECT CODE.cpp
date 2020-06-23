@@ -747,18 +747,19 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 	string city; // Temporary variable for Undergraduate City
 	string address; // Temporary variable for Undergraduate Address
 	
+	cin.ignore(); // Clearing the Buffer
 	cout << endl << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl;
 	cout << "Adding New Undergraduate Input" << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
 	cout << "Name : ";
-	cin >> name; // User Input for Name
+	getline(cin, name); // User Input for Name
 	cout << "Metric : ";
-	cin >> metric; // User Input for Metric
+	getline(cin, metric); // User Input for Metric
 	cout << "Course Name : ";
-	cin >> courseName; // User Input for Course Name
+	getline(cin, courseName); // User Input for Course Name
 	cout << "Course Code : ";
-	cin >> courseCode; // User Input for Course Code
+	getline(cin, courseCode); // User Input for Course Code
 	
 	cout << endl << endl;
 	cout << "1. Inside UTM" << endl;
@@ -775,6 +776,7 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 	// If the user input 2 it will ask all of the data needed.
 	//================================//
 	
+	cin.ignore(); // Clearing the Buffer
 	switch (choice)
 	{
 		//==================//
@@ -789,9 +791,9 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 			state = "Johor Bahru";
 			
 			cout << "Kolej : ";
-			cin >> kolej; // User Input for Kolej
+			getline(cin, kolej); // User Input for Kolej
 			cout << "Block : ";
-			cin >> block; // User Input for Block
+			getline(cin, block); // User Input for Block
 			break;
 			
 		//==================//
@@ -802,13 +804,13 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 		//==================//
 		case 2 :
 			cout << "Country : ";
-			cin >> country;
+			getline(cin, country);
 			cout << "State : ";
-			cin >> state;
+			getline(cin, state);
 			cout << "City : ";
-			cin >> city;
+			getline(cin, city);
 			cout << "Address : ";
-			cin >> address;
+			getline(cin, address);
 			break;
 		//==================//
 		// The default option is when the user input the choice that
