@@ -919,18 +919,19 @@ void addPostgraduate(Student *&postgraduate, int &countPG)
 	string city; // Temporary variable for Postgraduate City
 	string address; // Temporary variable for Postgraduate Address
 	
+	cin.ignore(); // Clearing the Buffer
 	cout << endl << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl;
 	cout << "Adding New Postgraduate Input" << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
 	cout << "Name : ";
-	cin >> name; // User Input for Name
+	getline(cin, name); // User Input for Name
 	cout << "Metric : ";
-	cin >> metric; // User Input for Metric
+	getline(cin, metric); // User Input for Metric
 	cout << "Course Name : ";
-	cin >> courseName; // User Input for Course Name
+	getline(cin, courseName); // User Input for Course Name
 	cout << "Course Code : ";
-	cin >> courseCode; // User Input for Course Code
+	getline(cin, courseCode); // User Input for Course Code
 	
 	cout << endl << endl;
 	cout << "1. Inside UTM" << endl;
@@ -947,6 +948,7 @@ void addPostgraduate(Student *&postgraduate, int &countPG)
 	// If the user input 2 it will ask all of the data needed.
 	//================================//
 	
+	cin.ignore(); // Clearing the Buffer
 	switch (choice)
 	{
 		//==================//
@@ -961,9 +963,9 @@ void addPostgraduate(Student *&postgraduate, int &countPG)
 			state = "Johor Bahru";
 			
 			cout << "Kolej : ";
-			cin >> kolej; // User Input for Kolej
+			getline(cin, kolej); // User Input for Kolej
 			cout << "Block : ";
-			cin >> block; // User Input for Block
+			getline(cin, block); // User Input for Block
 			break;
 			
 		//==================//
@@ -974,13 +976,13 @@ void addPostgraduate(Student *&postgraduate, int &countPG)
 		//==================//
 		case 2 :
 			cout << "Country : ";
-			cin >> country;
+			getline(cin, country);
 			cout << "State : ";
-			cin >> state;
+			getline(cin, state);
 			cout << "City : ";
-			cin >> city;
+			getline(cin, city);
 			cout << "Address : ";
-			cin >> address;
+			getline(cin, address);
 			break;
 		//==================//
 		// The default option is when the user input the choice that
@@ -1090,16 +1092,17 @@ void addLecturer(Lecturer *&lecturer, int &countLecturer)
 	string city; // Temporary variable for Lecturer City
 	string address; // Temporary variable for Lecturer Address
 	
+	cin.ignore(); // Clearing The Buffer
 	cout << endl << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl;
 	cout << "Adding New Postgraduate Input" << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
 	cout << "Name : ";
-	cin >> name; // User Input for Name
+	getline(cin, name); // User Input for Name
 	cout << "Course Name : ";
-	cin >> courseName; // User Input for Course Name
+	getline(cin, courseName); // User Input for Course Name
 	cout << "Course Code : ";
-	cin >> courseCode; // User Input for Course Code
+	getline(cin, courseCode); // User Input for Course Code
 	
 	cout << endl << endl;
 	cout << "1. Inside UTM" << endl;
@@ -1116,6 +1119,7 @@ void addLecturer(Lecturer *&lecturer, int &countLecturer)
 	// If the user input 2 it will ask all of the data needed.
 	//================================//
 	
+	cin.ignore(); // Clearing the Buffer
 	switch (choice)
 	{
 		//==================//
@@ -1130,9 +1134,9 @@ void addLecturer(Lecturer *&lecturer, int &countLecturer)
 			state = "Johor Bahru";
 			
 			cout << "Kolej : ";
-			cin >> kolej; // User Input for Kolej
+			getline(cin, kolej); // User Input for Kolej
 			cout << "Block : ";
-			cin >> block; // User Input for Block
+			getline(cin, block); // User Input for Block
 			break;
 			
 		//==================//
@@ -1143,13 +1147,13 @@ void addLecturer(Lecturer *&lecturer, int &countLecturer)
 		//==================//
 		case 2 :
 			cout << "Country : ";
-			cin >> country;
+			getline(cin, country);
 			cout << "State : ";
-			cin >> state;
+			getline(cin, state);
 			cout << "City : ";
-			cin >> city;
+			getline(cin, city);
 			cout << "Address : ";
-			cin >> address;
+			getline(cin, address);
 			break;
 		//==================//
 		// The default option is when the user input the choice that
@@ -1256,14 +1260,15 @@ void addStaff(Staff *&staff, int &countStaff)
 	string city; // Temporary variable for Staff City
 	string address; // Temporary variable for Staff Address
 	
+	cin.ignore(); // Clearing the Buffer
 	cout << endl << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl;
 	cout << "Adding New Staff Input" << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
 	cout << "Name : ";
-	cin >> name; // User Input for Name
+	getline(cin, name); // User Input for Name
 	cout << "Department : ";
-	cin >> department; // User Input for Department
+	getline(cin, department); // User Input for Department
 	
 	cout << endl << endl;
 	cout << "1. Inside UTM" << endl;
@@ -1280,6 +1285,7 @@ void addStaff(Staff *&staff, int &countStaff)
 	// If the user input 2 it will ask all of the data needed.
 	//================================//
 	
+	cin.ignore(); // Clearing the Buffer
 	switch (choice)
 	{
 		//==================//
@@ -1294,9 +1300,9 @@ void addStaff(Staff *&staff, int &countStaff)
 			state = "Johor Bahru";
 			
 			cout << "Kolej : ";
-			cin >> kolej; // User Input for Kolej
+			getline(cin, kolej); // User Input for Kolej
 			cout << "Block : ";
-			cin >> block; // User Input for Block
+			getline(cin, block); // User Input for Block
 			break;
 			
 		//==================//
@@ -1307,13 +1313,13 @@ void addStaff(Staff *&staff, int &countStaff)
 		//==================//
 		case 2 :
 			cout << "Country : ";
-			cin >> country;
+			getline(cin, country);
 			cout << "State : ";
-			cin >> state;
+			getline(cin, state);
 			cout << "City : ";
-			cin >> city;
+			getline(cin, city);
 			cout << "Address : ";
-			cin >> address;
+			getline(cin, address);
 			break;
 		//==================//
 		// The default option is when the user input the choice that
@@ -1595,13 +1601,13 @@ int main ()
 						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
-						displayPostgraduate(); // Display the list of Postgraduate
+						//displayPostgraduate(); // Display the list of Postgraduate
 						break;
 					case 3 :
-						displayLecturer(); // Display the list of Lecturer
+						//displayLecturer(); // Display the list of Lecturer
 						break;
 					case 4 :
-						displayStaff(); // Display the list of Staff
+						//displayStaff(); // Display the list of Staff
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
