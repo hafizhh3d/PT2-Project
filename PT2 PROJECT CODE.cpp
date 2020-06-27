@@ -721,7 +721,6 @@ void menu () // Function to Show Menu
 	
 	cout << endl;
 	cout << "4. SEARCH DATA" << endl;
-	cout << endl;
 	
 	cout << endl;
 	cout << "5. EXIT PROGRAM" << endl;
@@ -1551,17 +1550,158 @@ void displayStaff(Staff *staff, int countStaff)
 }
 
 //============================================================//
+//					searchUndergraduate()                     //
+//					Input  = google, countUG       			  //	
+//					Output = Displaying the search string     //
+//															  //
+// This Function will display the string that is searched by  //
+// the user in the Undergraduate data.						  //
+//============================================================//
+
+void searchUndergraduate(string google, Student *undergraduate, int countUG)
+{
+	int count = 0; // Variable for counter
+	bool check = false; // Variable to check
+	
+	try
+	{
+		if (countUG == 0)
+		throw "Input is Empty!";
+		
+		for (int i = 0; i < countUG; i -= -1)
+		{
+			check = false;
+			
+			if (undergraduate[i].getName().find(google) < undergraduate[i].getName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getMetric().find(google) < undergraduate[i].getMetric().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getCourseName().find(google) < undergraduate[i].getCourseName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getCourseCode().find(google) < undergraduate[i].getCourseCode().size())
+			{
+				check = true;
+				goto found;
+			}
+			
+			if (undergraduate[i].getOutsideCountry().empty())
+			{
+				cout << "CTACHT" << endl;
+				cout << undergraduate[i].getOutsideCountry();
+				cout << endl;
+				goto utm;
+			}
+			/*else if (!undergraduate[i].getUTMKolej().empty())
+			{
+				cout << "GOT" << endl;
+				cout << undergraduate[i].getUTMKolej();
+				cout << endl;
+				goto utm;
+			}*/
+			cout << "GOT" << endl;
+			
+			utm :
+			if (undergraduate[i].getUTMCountry().find(google) < undergraduate[i].getUTMCountry().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getUTMState().find(google) < undergraduate[i].getUTMState().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getUTMKolej().find(google) < undergraduate[i].getUTMKolej().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getUTMBlock().find(google) < undergraduate[i].getUTMBlock().size())
+			{
+				check = true;
+				goto found;
+			}
+			goto found;
+		
+			outside :
+			if (undergraduate[i].getOutsideCountry().find(google) < undergraduate[i].getOutsideCountry().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getOutsideState().find(google) < undergraduate[i].getOutsideState().size())
+			{
+				check = true;
+				goto found;	
+			}
+			if (undergraduate[i].getOutsideCity().find(google) < undergraduate[i].getOutsideCity().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (undergraduate[i].getOutsideAddress().find(google) < undergraduate[i].getOutsideAddress().size())
+			{
+				check = true;
+				goto found;
+			}
+		
+			found :
+			if (check)
+			{
+				undergraduate[i].showInfo();
+				cout << endl << endl;
+				count++;
+			}
+		}
+			
+		if (count == 0)
+		{
+			cout << "No Matched Input";
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+
+//============================================================//
 //						searchData()                     	  //
-//					Input  = None          					  //	
+//					Input  = countUG, countPG, countLecturer  //
+//							 countStaff, *undergraduate,	  //
+//							 *postgraduate, *lecturer, *staff //	
 //					Output = Displaying the search string     //
 //															  //
 // This Function will display the string that is searched by  //
 // the user.												  //
 //============================================================//
 
-void searchData()
+void searchData(int countUG, int countPG, int countLecturer, int countStaff, Student *undergraduate, Student *postgraduate, Lecturer *lecturer, Staff *staff)
 {
+	string google; // Variable for User Input to search data
 	
+	cout << "Please enter the string that you wish to search : ";
+	cin >> google;
+	
+	cout << endl << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << "     UNDERGRADUATE   " << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << endl;
+	
+	searchUndergraduate(google, undergraduate, countUG); // Calling Function searchUndergraduate
+	
+	cout << endl << endl;
 }
 
 
@@ -1753,7 +1893,9 @@ int main ()
 			//============================================================//
 				
 			case 4 : 
-				searchData(); // Calling Function searchData
+				searchData(countUG, countPG, countLecturer, countStaff, undergraduate, postgraduate, lecturer, staff); // Calling Function searchData
+				system("pause");
+				break;
 				
 			//============================================================//
 			//			Choice 5 = EXIT PROGRAM							  //
