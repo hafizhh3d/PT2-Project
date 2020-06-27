@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -721,9 +722,13 @@ void menu () // Function to Show Menu
 	
 	cout << endl;
 	cout << "4. SEARCH DATA" << endl;
+	cout << endl;
+	
+	cout << "5. READ DATA" << endl;
+	cout << "6. SAVE DATA" << endl;
 	
 	cout << endl;
-	cout << "5. EXIT PROGRAM" << endl;
+	cout << "7. EXIT PROGRAM" << endl;
 	
 	cout << endl << "Choose what you want to do : ";
 }
@@ -1704,10 +1709,216 @@ void searchData(int countUG, int countPG, int countLecturer, int countStaff, Stu
 	cout << endl << endl;
 }
 
+//============================================================//
+//						readUndergraduate()					  //
+//					Input  = *undergraduate, countUG		  //
+//					Output = Reading New Input for UG		  //
+//															  //
+// This Function will read new entry for UG.				  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already and to check whether the //
+// program exist or not.									  //
+//============================================================//
+
+void readUndergraduate(Student *&undergraduate, int &countUG)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Reading New Undergraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Please be advised that the data follow this structure of data writing : " << endl << endl;
+	
+	cout << "NAME, METRIC, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
+	
+	cout << "Enter the name file : ";
+	getline(cin, fileName);
+	
+	clear :
+	try
+	{
+		if (countUG != 0)
+		{
+			throw "There is data saved in the program right now!";
+		}
+		
+		try
+		{
+			ifstream file (fileName.c_str());
+		
+			if (!file)
+			{
+				throw "Error! File unable to be Open!";
+			}
+			
+			string choice; // Variable for Choice
+			string name; // Temporary variable for Undergraduate Name
+			string metric; // Temporary variable for Undergraduate Metric
+			string courseName; // Temporary variable for Undergraduate Course Name
+			string courseCode; // Temporary variable for Undergraduate Course Code
+			string country; // Temporary variable for Undergraduate Country
+			string state; // Temporary variable for Undergraduate State
+			string kolej; // Temporary variable for Undergraduate Kolej
+			string block; // Temporary variable for Undergraduate Block
+			string city; // Temporary variable for Undergraduate City
+			string address; // Temporary variable for Undergraduate Address
+	
+			while (!file.eof())
+			{
+				cin.ignore(); // Clearing the Buffer
+			getline(file, name, ','); // Read Input for Name
+			getline(file, metric, ','); // Read Input for Metric
+			getline(file, courseName, ','); // Read Input for Course Name
+			getline(file, courseCode, ','); // Read Input for Course Code
+			getline(file, choice, ','); // Read Input to determine Choice
+			
+			int choose;
+			if (choice == "Inside")
+			{
+				choose = 1;
+			}
+			else
+			{
+				choose = 2;
+			}
+			//================================//
+			// This Switch statements will determine which data need to be added 
+			// based on the choice what the user input. 
+			//
+			// If the data input 1 it will automatically set the Country to Malaysia
+			// and the State to Johor Bahru.
+			// If the user input 2 it will ask all of the data needed.
+			//================================//
+			switch (choose)
+			{
+				//==================//
+				// Choice 1 is for the Undergraduate who is staying inside UTM.
+				// The Country will be automatically set to Malaysia and the 
+				// state will be set to Johor Bahru, so the user will only need
+				// to add the Kolej and Block data.
+				//==================//
+		
+				case 1 :
+				country = "Malaysia";
+				state = "Johor Bahru";
+				
+				getline(file, kolej, ','); // Read Input for Kolej
+				getline(file, block); // Read Input for Block
+				break;
+			
+				//==================//
+				// Choice 2 is for the Undergraduate who is staying Outside UTM.
+				// The user will need to enter all of the required info from 
+				// country up to their address all by themselves, as it is not
+				// been set in the first time.
+				//==================//
+				
+				case 2 :
+				getline(file, country, ',');
+				getline(file, state, ',');
+				getline(file, city, ',');
+				getline(file, address, '\n');
+				break;
+			}
+	
+			try
+			{
+				if (undergraduate == 0)
+				throw "Empty!";
+		
+				Student *temp;
+		
+				temp = new Student[countUG+1];
+		
+				for (int i = 0; i < countUG; i++)
+				{
+					temp[i] = undergraduate[i];
+				}
+		
+				temp[countUG].setName(name);
+				temp[countUG].setMetric(metric);
+				temp[countUG].setCourseName(courseName);
+				temp[countUG].setCourseCode(courseCode);
+		
+				if (choose == 1)
+				{
+					temp[countUG].allocateUTM();
+					temp[countUG].setUTMCountry(country);
+					temp[countUG].setUTMState(state);
+					temp[countUG].setUTMKolej(kolej);
+					temp[countUG].setUTMBlock(block);
+				}
+				else if (choose == 2)
+				{
+					temp[countUG].allocateOutside();
+					temp[countUG].setOutsideCountry(country);
+					temp[countUG].setOutsideState(state);
+					temp[countUG].setOutsideCity(city);
+					temp[countUG].setOutsideAddress(address);
+				}
+		
+				delete [] undergraduate;
+		
+				countUG++;
+		
+				undergraduate = temp;
+			}
+			catch (const char *msg)
+			{
+				undergraduate= new Student[1];
+		
+				undergraduate[0].setName(name);
+				undergraduate[0].setMetric(metric);
+				undergraduate[0].setCourseName(courseName);
+				undergraduate[0].setCourseCode(courseCode);
+		
+				if (choose == 1)
+				{
+					undergraduate[0].allocateUTM();
+					undergraduate[0].setUTMCountry(country);
+					undergraduate[0].setUTMState(state);
+					undergraduate[0].setUTMKolej(kolej);
+					undergraduate[0].setUTMBlock(block);
+				}
+				else if (choose == 2)
+				{
+					undergraduate[0].allocateOutside();
+					undergraduate[0].setOutsideCountry(country);
+					undergraduate[0].setOutsideState(state);
+					undergraduate[0].setOutsideCity(city);
+					undergraduate[0].setOutsideAddress(address);
+				}
+				countUG++;
+			}
+			}
+		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+		}
+	}
+	catch (const char *clear)
+	{
+		char choice;
+		
+		cout << clear << endl;
+		cout << "Do you want to erase the data (y/n) : ";
+		cin >> choice;
+		
+		if (choice == 'y')
+		{
+			countUG = 0;
+			goto clear;
+		}
+	}
+}
 
 int main ()
 {
-	int choice, choiceAdd, choiceDelete, choiceDisplay; // Variable for Choice
+	int choice, choiceAdd, choiceDelete, choiceDisplay, choiceRead, choiceSave; // Variable for Choice
 	
 	Student *undergraduate = 0; // Pointer Variable for Undergraduate and make it point to NULL
 	Student *postgraduate = 0; // Pointer Variable for Postgraduate and make it point to NULL
@@ -1866,7 +2077,6 @@ int main ()
 				{
 					case 1 :
 						displayUndergraduate(undergraduate, countUG); // Display the list of Undergraduate 
-						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
 						displayPostgraduate(postgraduate, countPG); // Display the list of Postgraduate
@@ -1876,7 +2086,6 @@ int main ()
 						break;
 					case 4 :
 						displayStaff(staff, countStaff); // Display the list of Staff
-						//displayPostgraduate(); // Display the list of Postgraduate
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
@@ -1898,11 +2107,103 @@ int main ()
 				break;
 				
 			//============================================================//
-			//			Choice 5 = EXIT PROGRAM							  //
-			// This will exit the program								  //
+			//			Choice 5 = READ DATA							  //
+			// This will read the data and stored it in the program.      //
 			//============================================================//
 				
 			case 5 : 
+				cout <<"=-=-=-=-=-=-=-" << endl;
+				cout << "READ DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
+				
+				cout << "1> READ UNDERGRADUATE" << endl;
+				cout << "2> READ POSTGRADUATE" << endl;
+				cout << "3> READ LECTURER" << endl;
+				cout << "4> READ STAFF" << endl;
+				
+				cout << endl << "Choose what data you want to Read : ";
+				cin >> choiceRead;
+				
+				//============================================================//
+				//		       			choiceRead   						  //
+				// The choiceDisplaly will determine which data to be 	      //
+				// read based on the menu they chosen	  			 		  //
+				//============================================================//
+				
+				switch (choiceRead)
+				{
+					case 1 :
+						readUndergraduate(undergraduate, countUG); // Read the list of Undergraduate 
+						break;
+					case 2 :
+						//readPostgraduate(postgraduate, countPG); // Read the list of Postgraduate
+						break;
+					case 3 :
+						//readLecturer(lecturer, countLecturer); // Read the list of Lecturer
+						break;
+					case 4 :
+						//readStaff(staff, countStaff); // Read the list of Staff
+						break;
+					default :
+						cout << "Input Not Recognized!!!!" << endl;
+						break;
+				}
+				cout << endl;
+				system("pause");
+				break;
+			
+			//============================================================//
+			//			Choice 6 = SAVE DATA							  //
+			// This will save the data that is stored in the program.     //
+			//============================================================//
+				
+			case 6 : 
+				cout <<"=-=-=-=-=-=-=-" << endl;
+				cout << "SAVE DATA" << endl << endl;
+				cout <<"=-=-=-=-=-=-=-" << endl << endl;
+				
+				cout << "1> SAVE UNDERGRADUATE" << endl;
+				cout << "2> SAVE POSTGRADUATE" << endl;
+				cout << "3> SAVE LECTURER" << endl;
+				cout << "4> SAVE STAFF" << endl;
+				
+				cout << endl << "Choose what data you want to Save : ";
+				cin >> choiceSave;
+				
+				//============================================================//
+				//		       			choiceSave							  //
+				// The choiceDisplaly will determine which data to be 	      //
+				// saved based on the menu they chosen				 		  //
+				//============================================================//
+				
+				switch (choiceSave)
+				{
+					case 1 :
+						//saveUndergraduate(undergraduate, countUG); // Save the list of Undergraduate 
+						break;
+					case 2 :
+						//savePostgraduate(postgraduate, countPG); // Save the list of Postgraduate
+						break;
+					case 3 :
+						//saveLecturer(lecturer, countLecturer); // Save the list of Lecturer
+						break;
+					case 4 :
+						//saveStaff(staff, countStaff); // Save the list of Staff
+						break;
+					default :
+						cout << "Input Not Recognized!!!!" << endl;
+						break;
+				}
+				cout << endl;
+				system("pause");
+				break;
+								
+			//============================================================//
+			//			Choice 7 = EXIT PROGRAM							  //
+			// This will exit the program								  //
+			//============================================================//
+				
+			case 7 : 
 				cout << "Exiting Program...." << endl;
 				cout << "Thanks for using our Program ^_^" << endl;
 				break;
@@ -1912,7 +2213,7 @@ int main ()
 				system("pause");
 				break;
 		}
-	} while (choice != 5); ;// This argument check wheter the choice is 4 (exit) or not
+	} while (choice != 7); ;// This argument check wheter the choice is 4 (exit) or not
 	
 	return 0;
 }
