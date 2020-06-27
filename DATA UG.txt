@@ -1,20 +1,20 @@
-Rhianna Hopkins, A19EC94, Software, SECJ, Outside, Indonesia, DKI Jakarta, Jakarta, Rhiana House
-Annika Wade, A19EC90, Network, SECR, Inside, KTF, H13
-Cathal Mejia, A19EC91, Network, SECR, Inside, KTF, H5
-Ember Bourne, A19EC95, Network, SECR, Inside, KTDI, M03
-Evie-Rose Holding, A19EC70, Software,SECJ, Outside, Indonesia, 
-Ivo Figueroa, A19EC27, Multimedia, SECV, Inside, KDOJ, XC3
-Monika Fountain, A19EC20, Data, SECB, Outside, Indonesia, Riau, Pekanbaru, Monika
-Dean Goff, A19EC1, Network, SECR, Inside, KDOJ, XC2
-Gregor Stewart, A19EC68, Software,SECJ, Inside, KTR, K11
-Britney Krause, A19EC86, Multimedia, SECV, Inside, KTDI, M02
-Archie Croft, A19EC78, Data, SECB, Inside, KTR, K13
-Brandon Oneil, A19EC64, Multimedia, SECV, Outside, Malaysia, Pahang, Kuantan, Brandon House
-Artur Ortiz, A19EC21, Multimedia, SECV, Outside, Malaysia, Pahang, Kuala Lipis
-Sumayya Armitage, A19EC57, Data, SECB, Outside, Malaysia, Melaka, Melaka, Summaya House
-Haroon Guzman, A19EC85, Data, SECB, Outside, Malaysia, Selangor, Petaling Jaya, Haroon House
-Menna Melia, A19EC99, Data, SECB, Outside, Malaysia, Perak, Taiping, Menna House
-Hakim Finch, A19EC45, Network, SECR, Inside, KDSE, WA2
-Sanna Gilliam, A19EC47, Software,SECJ, Outside, Indonesia, Aceh, Sabang, Sanna House
-Buster Cassidy, A19EC33, Multimedia, SECV, Outside, Indonesia, Jawa, Bandung, Buster House
-Tara Sexton, A19EC11, Multimedia, SECV, Inside, K9, K9
+Rhianna Hopkins,A19EC94,Software,SECJ,Outside,Indonesia,DKI Jakarta,Jakarta,Rhiana House
+Annika Wade,A19EC90,Network,SECR,Inside,KTF,H13
+Cathal Mejia,A19EC91,Network,SECR,Inside,KTF,H5
+Ember Bourne,A19EC95,Network,SECR,Inside,KTDI,M03
+Evie-Rose Holding,A19EC70,Software,SECJ,Outside,Indonesia,Kepri,Batam,Evie House
+Ivo Figueroa,A19EC27,Multimedia,SECV,Inside,KDOJ,XC3
+Monika Fountain,A19EC20,Data,SECB,Outside,Indonesia,Riau,Pekanbaru,Monika
+Dean Goff,A19EC1,Network,SECR,Inside,KDOJ,XC2
+Gregor Stewart,A19EC68,Software,SECJ,Inside,KTR,K11
+Britney Krause,A19EC86,Multimedia,SECV,Inside,KTDI,M02
+Archie Croft,A19EC78,Data,SECB,Inside,KTR,K13
+Brandon Oneil,A19EC64,Multimedia,SECV,Outside,Malaysia,Pahang,Kuantan,Brandon House
+Artur Ortiz,A19EC21,Multimedia,SECV,Outside,Malaysia,Pahang,Kuala Lipis, Artur House
+Sumayya Armitage,A19EC57,Data,SECB,Outside,Malaysia,Melaka,Melaka,Summaya House
+Haroon Guzman,A19EC85,Data,SECB,Outside,Malaysia,Selangor,Petaling Jaya,Haroon House
+Menna Melia,A19EC99,Data,SECB,Outside,Malaysia,Perak,Taiping,Menna House
+Hakim Finch,A19EC45,Network,SECR,Inside,KDSE,WA2
+Sanna Gilliam,A19EC47,Software,SECJ,Outside,Indonesia,Aceh,Sabang,Sanna House
+Buster Cassidy,A19EC33,Multimedia,SECV,Outside,Indonesia,Jawa,Bandung,Buster House
+Tara Sexton,A19EC11,Multimedia,SECV,Inside,K9,K9

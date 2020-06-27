@@ -1598,7 +1598,7 @@ void searchUndergraduate(string google, Student *undergraduate, int countUG)
 				goto found;
 			}
 			
-			if (undergraduate[i].getOutsideCountry().empty())
+			/*if (undergraduate[i].getOutsideCountry().empty())
 			{
 				cout << "CTACHT" << endl;
 				cout << undergraduate[i].getOutsideCountry();
@@ -1614,7 +1614,7 @@ void searchUndergraduate(string google, Student *undergraduate, int countUG)
 			}*/
 			cout << "GOT" << endl;
 			
-			utm :
+			/*utm :
 			if (undergraduate[i].getUTMCountry().find(google) < undergraduate[i].getUTMCountry().size())
 			{
 				check = true;
@@ -1635,7 +1635,7 @@ void searchUndergraduate(string google, Student *undergraduate, int countUG)
 				check = true;
 				goto found;
 			}
-			goto found;
+			//goto found;*/
 		
 			outside :
 			if (undergraduate[i].getOutsideCountry().find(google) < undergraduate[i].getOutsideCountry().size())
@@ -1766,134 +1766,133 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 			string city; // Temporary variable for Undergraduate City
 			string address; // Temporary variable for Undergraduate Address
 	
-			while (!file.eof())
+			while (getline(file, name, ','))
 			{
-				cin.ignore(); // Clearing the Buffer
-			getline(file, name, ','); // Read Input for Name
-			getline(file, metric, ','); // Read Input for Metric
-			getline(file, courseName, ','); // Read Input for Course Name
-			getline(file, courseCode, ','); // Read Input for Course Code
-			getline(file, choice, ','); // Read Input to determine Choice
+				getline(file, metric, ','); // Read Input for Metric
+				getline(file, courseName, ','); // Read Input for Course Name
+				getline(file, courseCode, ','); // Read Input for Course Code
+				getline(file, choice, ','); // Read Input to determine Choice
 			
-			int choose;
-			if (choice == "Inside")
-			{
-				choose = 1;
-			}
-			else
-			{
-				choose = 2;
-			}
-			//================================//
-			// This Switch statements will determine which data need to be added 
-			// based on the choice what the user input. 
-			//
-			// If the data input 1 it will automatically set the Country to Malaysia
-			// and the State to Johor Bahru.
-			// If the user input 2 it will ask all of the data needed.
-			//================================//
-			switch (choose)
-			{
-				//==================//
-				// Choice 1 is for the Undergraduate who is staying inside UTM.
-				// The Country will be automatically set to Malaysia and the 
-				// state will be set to Johor Bahru, so the user will only need
-				// to add the Kolej and Block data.
-				//==================//
+				int choose;
+				if (choice == "Inside")
+				{
+					choose = 1;
+				}
+				else
+				{
+					choose = 2;
+				}
+				//================================//
+				// This Switch statements will determine which data need to be added 
+				// based on the choice what the user input. 
+				//
+				// If the data input 1 it will automatically set the Country to Malaysia
+				// and the State to Johor Bahru.
+				// If the user input 2 it will ask all of the data needed.
+				//================================//
+				switch (choose)
+				{
+					//==================//
+					// Choice 1 is for the Undergraduate who is staying inside UTM.
+					// The Country will be automatically set to Malaysia and the 
+					// state will be set to Johor Bahru, so the user will only need
+					// to add the Kolej and Block data.
+					//==================//
 		
-				case 1 :
-				country = "Malaysia";
-				state = "Johor Bahru";
+					case 1 :
+					country = "Malaysia";
+					state = "Johor Bahru";
 				
-				getline(file, kolej, ','); // Read Input for Kolej
-				getline(file, block); // Read Input for Block
-				break;
-			
-				//==================//
-				// Choice 2 is for the Undergraduate who is staying Outside UTM.
-				// The user will need to enter all of the required info from 
-				// country up to their address all by themselves, as it is not
-				// been set in the first time.
-				//==================//
+					getline(file, kolej, ','); // Read Input for Kolej
+					getline(file, block, '\n'); // Read Input for Block
+					break;
 				
-				case 2 :
-				getline(file, country, ',');
-				getline(file, state, ',');
-				getline(file, city, ',');
-				getline(file, address, '\n');
-				break;
-			}
+					//==================//
+					// Choice 2 is for the Undergraduate who is staying Outside UTM.
+					// The user will need to enter all of the required info from 
+					// country up to their address all by themselves, as it is not
+					// been set in the first time.
+					//==================//
+				
+					case 2 :
+					getline(file, country, ',');
+					getline(file, state, ',');
+					getline(file, city, ',');
+					getline(file, address, '\n');
+					break;
+				}
 	
-			try
-			{
-				if (undergraduate == 0)
-				throw "Empty!";
-		
-				Student *temp;
-		
-				temp = new Student[countUG+1];
-		
-				for (int i = 0; i < countUG; i++)
+				try
 				{
-					temp[i] = undergraduate[i];
+					if (undergraduate == 0)
+					throw "Empty!";
+			
+					Student *temp;
+		
+					temp = new Student[countUG+1];
+			
+					for (int i = 0; i < countUG; i++)
+					{
+						temp[i] = undergraduate[i];
+					}
+		
+					temp[countUG].setName(name);
+					temp[countUG].setMetric(metric);
+					temp[countUG].setCourseName(courseName);
+					temp[countUG].setCourseCode(courseCode);
+			
+					if (choose == 1)
+					{
+						temp[countUG].allocateUTM();
+						temp[countUG].setUTMCountry(country);
+						temp[countUG].setUTMState(state);
+						temp[countUG].setUTMKolej(kolej);
+						temp[countUG].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						temp[countUG].allocateOutside();
+						temp[countUG].setOutsideCountry(country);
+						temp[countUG].setOutsideState(state);
+						temp[countUG].setOutsideCity(city);
+						temp[countUG].setOutsideAddress(address);
+					}
+		
+					delete [] undergraduate;
+			
+					countUG++;
+		
+					undergraduate = temp;
 				}
-		
-				temp[countUG].setName(name);
-				temp[countUG].setMetric(metric);
-				temp[countUG].setCourseName(courseName);
-				temp[countUG].setCourseCode(courseCode);
-		
-				if (choose == 1)
+				catch (const char *msg)
 				{
-					temp[countUG].allocateUTM();
-					temp[countUG].setUTMCountry(country);
-					temp[countUG].setUTMState(state);
-					temp[countUG].setUTMKolej(kolej);
-					temp[countUG].setUTMBlock(block);
+					undergraduate = new Student[1];
+					
+					undergraduate[0].setName(name);
+					undergraduate[0].setMetric(metric);
+					undergraduate[0].setCourseName(courseName);
+					undergraduate[0].setCourseCode(courseCode);
+				
+					if (choose == 1)
+					{
+						undergraduate[0].allocateUTM();
+						undergraduate[0].setUTMCountry(country);
+						undergraduate[0].setUTMState(state);
+						undergraduate[0].setUTMKolej(kolej);
+						undergraduate[0].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						undergraduate[0].allocateOutside();
+						undergraduate[0].setOutsideCountry(country);
+						undergraduate[0].setOutsideState(state);
+						undergraduate[0].setOutsideCity(city);
+						undergraduate[0].setOutsideAddress(address);
+					}
+					countUG++;
 				}
-				else if (choose == 2)
-				{
-					temp[countUG].allocateOutside();
-					temp[countUG].setOutsideCountry(country);
-					temp[countUG].setOutsideState(state);
-					temp[countUG].setOutsideCity(city);
-					temp[countUG].setOutsideAddress(address);
-				}
-		
-				delete [] undergraduate;
-		
-				countUG++;
-		
-				undergraduate = temp;
 			}
-			catch (const char *msg)
-			{
-				undergraduate= new Student[1];
-		
-				undergraduate[0].setName(name);
-				undergraduate[0].setMetric(metric);
-				undergraduate[0].setCourseName(courseName);
-				undergraduate[0].setCourseCode(courseCode);
-		
-				if (choose == 1)
-				{
-					undergraduate[0].allocateUTM();
-					undergraduate[0].setUTMCountry(country);
-					undergraduate[0].setUTMState(state);
-					undergraduate[0].setUTMKolej(kolej);
-					undergraduate[0].setUTMBlock(block);
-				}
-				else if (choose == 2)
-				{
-					undergraduate[0].allocateOutside();
-					undergraduate[0].setOutsideCountry(country);
-					undergraduate[0].setOutsideState(state);
-					undergraduate[0].setOutsideCity(city);
-					undergraduate[0].setOutsideAddress(address);
-				}
-				countUG++;
-			}
-			}
+			cout << endl << endl << "Data Have been Succesfully read!" << endl;
 		}
 		catch (const char *error)
 		{
