@@ -1445,6 +1445,15 @@ void displayUndergraduate(Student *undergraduate, int countUG)
 	}
 }
 
+//============================================================//
+//					displayPostgraduate()                     //
+//					Input  = *postgraduate, countPG           //
+//					Output = Displaying Postgraduate Data     //
+//															  //
+// This Function will display the Postgraduate data that have //
+// been stored in the machine.                                //
+//============================================================//
+
 void displayPostgraduate(Student *postgraduate, int countPG)
 {
 	
@@ -1470,6 +1479,15 @@ void displayPostgraduate(Student *postgraduate, int countPG)
 		cout << "Going Back to Main Menu..." << endl;
 	}
 }
+
+//============================================================//
+//						displaylecturer()                     //
+//					Input  = *lecturer, countlecturer         //
+//					Output = Displaying Lecturer Data	      //
+//															  //
+// This Function will display the Lecturer data that have	  //
+// been stored in the machine.                                //
+//============================================================//
 
 void displayLecturer(Lecturer *lecturer, int countLecturer)
 {
@@ -1497,6 +1515,15 @@ void displayLecturer(Lecturer *lecturer, int countLecturer)
 	}
 }
 
+//============================================================//
+//						displayStaff()                        //
+//					Input  = *staff, countStaff         	  //
+//					Output = Displaying Staff Data            //
+//															  //
+// This Function will display the Staff data that have        //
+// been stored in the machine.                                //
+//============================================================//
+
 void displayStaff(Staff *staff, int countStaff)
 {
 	
@@ -1521,6 +1548,20 @@ void displayStaff(Staff *staff, int countStaff)
 		cout << msg << endl;
 		cout << "Going Back to Main Menu..." << endl;
 	}
+}
+
+//============================================================//
+//						searchData()                     	  //
+//					Input  = None          					  //	
+//					Output = Displaying the search string     //
+//															  //
+// This Function will display the string that is searched by  //
+// the user.												  //
+//============================================================//
+
+void searchData()
+{
+	
 }
 
 
@@ -1706,19 +1747,30 @@ int main ()
 				break;
 				
 			//============================================================//
-			//			Choice 4 = EXIT PROGRAM							  //
-			// This will exit the program								  //
+			//			Choice 4 = SEARCH DATA							  //
+			// This will search the string that the user desired to search//
+			// in this program.   										  //
 			//============================================================//
 				
 			case 4 : 
-				exit(1);
+				searchData(); // Calling Function searchData
+				
+			//============================================================//
+			//			Choice 5 = EXIT PROGRAM							  //
+			// This will exit the program								  //
+			//============================================================//
+				
+			case 5 : 
+				cout << "Exiting Program...." << endl;
+				cout << "Thanks for using our Program ^_^" << endl;
+				break;
 			
 			default :
 				cout << "Input Not Recognized!!!" << endl;
 				system("pause");
 				break;
 		}
-	} while (choice != 4); ;// This argument check wheter the choice is 4 (exit) or not
+	} while (choice != 5); ;// This argument check wheter the choice is 4 (exit) or not
 	
 	return 0;
 }
