@@ -1097,7 +1097,7 @@ void addLecturer(Lecturer *&lecturer, int &countLecturer)
 	cin.ignore(); // Clearing The Buffer
 	cout << endl << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl;
-	cout << "Adding New Postgraduate Input" << endl;
+	cout << "Adding New Lecturer Input" << endl;
 	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
 	cout << "Name : ";
 	getline(cin, name); // User Input for Name
@@ -1404,10 +1404,14 @@ void addStaff(Staff *&staff, int &countStaff)
 	return;
 }
 
-// deleteUndergraduate(){}
-// deletePostgraduate(){}
-// deleteLecturer(){}
-// deleteStaff(){}
+//============================================================//
+//					displayUdergraduate()                     //
+//					Input  = *undergraduate, countUG          //
+//					Output = Displaying Undergradaute Data    //
+//															  //
+// This Function will display the Undergraduate data that have//
+// been stored in the machine.                                //
+//============================================================//
 
 void displayUndergraduate(Student *undergraduate, int countUG)
 {
@@ -1434,9 +1438,84 @@ void displayUndergraduate(Student *undergraduate, int countUG)
 		cout << "Going Back to Main Menu..." << endl;
 	}
 }
-// displayPostgraduate(){}
-// displayLecturer(){}
-// displayStaff(){}
+
+void displayPostgraduate(Student *postgraduate, int countPG)
+{
+	
+	try
+	{
+		if (countPG == 0)
+		throw "There is no input!";
+		
+		
+		for (int i = 0; i < countPG; i++)
+		{
+			cout << endl << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			cout << "Data " << i+1 << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			postgraduate[i].showInfo();
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << endl;
+		cout << msg << endl;
+		cout << "Going Back to Main Menu..." << endl;
+	}
+}
+
+void displayLecturer(Lecturer *lecturer, int countLecturer)
+{
+	
+	try
+	{
+		if (countLecturer == 0)
+		throw "There is no input!";
+		
+		
+		for (int i = 0; i < countLecturer; i++)
+		{
+			cout << endl << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			cout << "Data " << i+1 << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			lecturer[i].showInfo();
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << endl;
+		cout << msg << endl;
+		cout << "Going Back to Main Menu..." << endl;
+	}
+}
+
+void displayStaff(Staff *staff, int countStaff)
+{
+	
+	try
+	{
+		if (countStaff == 0)
+		throw "There is no input!";
+		
+		
+		for (int i = 0; i < countStaff; i++)
+		{
+			cout << endl << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			cout << "Data " << i+1 << endl;
+			cout << "-=-=-=-=-=-=-=" << endl;
+			staff[i].showInfo();
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << endl;
+		cout << msg << endl;
+		cout << "Going Back to Main Menu..." << endl;
+	}
+}
 
 
 int main ()
@@ -1603,6 +1682,15 @@ int main ()
 						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
+<<<<<<< HEAD
+						displayPostgraduate(postgraduate, countPG); // Display the list of Postgraduate
+						break;
+					case 3 :
+						displayLecturer(lecturer, countLecturer); // Display the list of Lecturer
+						break;
+					case 4 :
+						displayStaff(staff, countStaff); // Display the list of Staff
+=======
 						//displayPostgraduate(); // Display the list of Postgraduate
 						break;
 					case 3 :
@@ -1610,6 +1698,7 @@ int main ()
 						break;
 					case 4 :
 						//displayStaff(); // Display the list of Staff
+>>>>>>> master
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
