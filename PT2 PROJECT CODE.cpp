@@ -718,7 +718,13 @@ void menu () // Function to Show Menu
 	cout << "1. ADD DATA" << endl;
 	cout << "2. DELETE DATA" << endl;
 	cout << "3. DISPLAY DATA" << endl;
-	cout << "4. EXIT PROGRAM" << endl;
+	
+	cout << endl;
+	cout << "4. SEARCH DATA" << endl;
+	cout << endl;
+	
+	cout << endl;
+	cout << "5. EXIT PROGRAM" << endl;
 	
 	cout << endl << "Choose what you want to do : ";
 }
@@ -1682,7 +1688,6 @@ int main ()
 						// Function Object to display Undergraduate Student
 						break;
 					case 2 :
-<<<<<<< HEAD
 						displayPostgraduate(postgraduate, countPG); // Display the list of Postgraduate
 						break;
 					case 3 :
@@ -1690,15 +1695,7 @@ int main ()
 						break;
 					case 4 :
 						displayStaff(staff, countStaff); // Display the list of Staff
-=======
 						//displayPostgraduate(); // Display the list of Postgraduate
-						break;
-					case 3 :
-						//displayLecturer(); // Display the list of Lecturer
-						break;
-					case 4 :
-						//displayStaff(); // Display the list of Staff
->>>>>>> master
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
