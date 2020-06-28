@@ -374,6 +374,15 @@ class Lecturer : public Person // Inheritance from Person Class
 		{
 			return address->getCity();
 		}
+		bool checkInside() // To Check whether Lecturer Inside or not
+		{
+			bool inside = false;
+			
+			if (address == 0);
+			inside = true;
+			
+			return inside;
+		}
 		void showInfo() // Overriden Function from Base Class Person
 		{
 			cout << left << setw(20) << "Name" << ": " << name << endl;
@@ -532,6 +541,15 @@ class Student : public Person // Inheritance from Person Class
 		{
 			return address->getCity();
 		}
+		bool checkInside() // To Check whether Student Inside or not
+		{
+			bool inside = false;
+			
+			if (address == 0);
+			inside = true;
+			
+			return inside;
+		}
 		void showInfo() // Overriden Function from Base Class Person
 		{
 			cout << left << setw(20) << "Name" << ": " << name << endl;
@@ -672,6 +690,15 @@ class Staff : public Person // Inheritance from Person Class
 		string getOutsideCity() // Accessor for Staff Outside City
 		{
 			return address->getCity();
+		}
+		bool checkInside() // To Check whether Staff Inside or not
+		{
+			bool inside = false;
+			
+			if (address == 0);
+			inside = true;
+			
+			return inside;
 		}
 		void showInfo() // Overriden Function from Base Class Person
 		{
@@ -1734,7 +1761,7 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 	
 	cout << "NAME, METRIC, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
 	
-	cout << "Enter the name file : ";
+	cout << "Enter the name file you want to read from : ";
 	getline(cin, fileName);
 	
 	clear :
@@ -1914,6 +1941,867 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 		}
 	}
 }
+
+//============================================================//
+//						readPostgraduate()					  //
+//					Input  = *postgraduate, countPG	 		  //
+//					Output = Reading New Input for PG		  //
+//															  //
+// This Function will read new entry for PG.				  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already and to check whether the //
+// program exist or not.									  //
+//============================================================//
+
+void readPostgraduate(Student *&postgraduate, int &countPG)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Reading New Postgraduate Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Please be advised that the data follow this structure of data writing : " << endl << endl;
+	
+	cout << "NAME, METRIC, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
+	
+	cout << "Enter the name file you want to read from : ";
+	getline(cin, fileName);
+	
+	clear :
+	try
+	{
+		if (countPG != 0)
+		{
+			throw "There is data saved in the program right now!";
+		}
+		
+		try
+		{
+			ifstream file (fileName.c_str());
+		
+			if (!file)
+			{
+				throw "Error! File unable to be Open!";
+			}
+			
+			string choice; // Variable for Choice
+			string name; // Temporary variable for Postgraduate Name
+			string metric; // Temporary variable for Postgraduate Metric
+			string courseName; // Temporary variable for Postgraduate Course Name
+			string courseCode; // Temporary variable for Postgraduate Course Code
+			string country; // Temporary variable for Postgraduate Country
+			string state; // Temporary variable for Postgraduate State
+			string kolej; // Temporary variable for Postgraduate Kolej
+			string block; // Temporary variable for Postgraduate Block
+			string city; // Temporary variable for Postgraduate City
+			string address; // Temporary variable for Postgraduate Address
+	
+			while (getline(file, name, ','))
+			{
+				getline(file, metric, ','); // Read Input for Metric
+				getline(file, courseName, ','); // Read Input for Course Name
+				getline(file, courseCode, ','); // Read Input for Course Code
+				getline(file, choice, ','); // Read Input to determine Choice
+			
+				int choose;
+				if (choice == "Inside")
+				{
+					choose = 1;
+				}
+				else
+				{
+					choose = 2;
+				}
+				//================================//
+				// This Switch statements will determine which data need to be added 
+				// based on the choice what the user input. 
+				//
+				// If the data input 1 it will automatically set the Country to Malaysia
+				// and the State to Johor Bahru.
+				// If the user input 2 it will ask all of the data needed.
+				//================================//
+				switch (choose)
+				{
+					//==================//
+					// Choice 1 is for the Postgraduate who is staying inside UTM.
+					// The Country will be automatically set to Malaysia and the 
+					// state will be set to Johor Bahru, so the user will only need
+					// to add the Kolej and Block data.
+					//==================//
+		
+					case 1 :
+					country = "Malaysia";
+					state = "Johor Bahru";
+				
+					getline(file, kolej, ','); // Read Input for Kolej
+					getline(file, block, '\n'); // Read Input for Block
+					break;
+				
+					//==================//
+					// Choice 2 is for the Postgraduate who is staying Outside UTM.
+					// The user will need to enter all of the required info from 
+					// country up to their address all by themselves, as it is not
+					// been set in the first time.
+					//==================//
+				
+					case 2 :
+					getline(file, country, ',');
+					getline(file, state, ',');
+					getline(file, city, ',');
+					getline(file, address, '\n');
+					break;
+				}
+	
+				try
+				{
+					if (postgraduate == 0)
+					throw "Empty!";
+			
+					Student *temp;
+		
+					temp = new Student[countPG+1];
+			
+					for (int i = 0; i < countPG; i++)
+					{
+						temp[i] = postgraduate[i];
+					}
+		
+					temp[countPG].setName(name);
+					temp[countPG].setMetric(metric);
+					temp[countPG].setCourseName(courseName);
+					temp[countPG].setCourseCode(courseCode);
+			
+					if (choose == 1)
+					{
+						temp[countPG].allocateUTM();
+						temp[countPG].setUTMCountry(country);
+						temp[countPG].setUTMState(state);
+						temp[countPG].setUTMKolej(kolej);
+						temp[countPG].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						temp[countPG].allocateOutside();
+						temp[countPG].setOutsideCountry(country);
+						temp[countPG].setOutsideState(state);
+						temp[countPG].setOutsideCity(city);
+						temp[countPG].setOutsideAddress(address);
+					}
+		
+					delete [] postgraduate;
+			
+					countPG++;
+		
+					postgraduate = temp;
+				}
+				catch (const char *msg)
+				{
+					postgraduate = new Student[1];
+					
+					postgraduate[0].setName(name);
+					postgraduate[0].setMetric(metric);
+					postgraduate[0].setCourseName(courseName);
+					postgraduate[0].setCourseCode(courseCode);
+				
+					if (choose == 1)
+					{
+						postgraduate[0].allocateUTM();
+						postgraduate[0].setUTMCountry(country);
+						postgraduate[0].setUTMState(state);
+						postgraduate[0].setUTMKolej(kolej);
+						postgraduate[0].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						postgraduate[0].allocateOutside();
+						postgraduate[0].setOutsideCountry(country);
+						postgraduate[0].setOutsideState(state);
+						postgraduate[0].setOutsideCity(city);
+						postgraduate[0].setOutsideAddress(address);
+					}
+					countPG++;
+				}
+			}
+			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+		}
+	}
+	catch (const char *clear)
+	{
+		char choice;
+		
+		cout << clear << endl;
+		cout << "Do you want to erase the data (y/n) : ";
+		cin >> choice;
+		
+		if (choice == 'y')
+		{
+			countPG = 0;
+			goto clear;
+		}
+	}
+}
+
+//============================================================//
+//						readLecturer()						  //
+//					Input  = *lecturer, countLecturer 		  //
+//					Output = Reading New Input for Lecturer   //
+//															  //
+// This Function will read new entry for Lecturer.			  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already and to check whether the //
+// program exist or not.									  //
+//============================================================//
+
+void readLecturer(Lecturer *&lecturer, int &countLecturer)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Reading New Lecturer Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Please be advised that the data follow this structure of data writing : " << endl << endl;
+	
+	cout << "NAME, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
+	
+	cout << "Enter the name file you want to read from : ";
+	getline(cin, fileName);
+	
+	clear :
+	try
+	{
+		if (countLecturer != 0)
+		{
+			throw "There is data saved in the program right now!";
+		}
+		
+		try
+		{
+			ifstream file (fileName.c_str());
+		
+			if (!file)
+			{
+				throw "Error! File unable to be Open!";
+			}
+			
+			string choice; // Variable for Choice
+			string name; // Temporary variable for Lecturer Name
+			string courseName; // Temporary variable for Lecturer Course Name
+			string courseCode; // Temporary variable for Lecturer Course Code
+			string country; // Temporary variable for Lecturer Country
+			string state; // Temporary variable for Lecturer State
+			string kolej; // Temporary variable for Lecturer Kolej
+			string block; // Temporary variable for Lecturer Block
+			string city; // Temporary variable for Lecturer City
+			string address; // Temporary variable for Lecturer Address
+	
+			while (getline(file, name, ','))
+			{
+				getline(file, courseName, ','); // Read Input for Course Name
+				getline(file, courseCode, ','); // Read Input for Course Code
+				getline(file, choice, ','); // Read Input to determine Choice
+			
+				int choose;
+				if (choice == "Inside")
+				{
+					choose = 1;
+				}
+				else
+				{
+					choose = 2;
+				}
+				//================================//
+				// This Switch statements will determine which data need to be added 
+				// based on the choice what the user input. 
+				//
+				// If the data input 1 it will automatically set the Country to Malaysia
+				// and the State to Johor Bahru.
+				// If the user input 2 it will ask all of the data needed.
+				//================================//
+				switch (choose)
+				{
+					//==================//
+					// Choice 1 is for the Lecturer who is staying inside UTM.
+					// The Country will be automatically set to Malaysia and the 
+					// state will be set to Johor Bahru, so the user will only need
+					// to add the Kolej and Block data.
+					//==================//
+		
+					case 1 :
+					country = "Malaysia";
+					state = "Johor Bahru";
+				
+					getline(file, kolej, ','); // Read Input for Kolej
+					getline(file, block, '\n'); // Read Input for Block
+					break;
+				
+					//==================//
+					// Choice 2 is for the Lecturer who is staying Outside UTM.
+					// The user will need to enter all of the required info from 
+					// country up to their address all by themselves, as it is not
+					// been set in the first time.
+					//==================//
+				
+					case 2 :
+					getline(file, country, ',');
+					getline(file, state, ',');
+					getline(file, city, ',');
+					getline(file, address, '\n');
+					break;
+				}
+	
+				try
+				{
+					if (lecturer == 0)
+					throw "Empty!";
+			
+					Lecturer *temp;
+		
+					temp = new Lecturer[countLecturer+1];
+			
+					for (int i = 0; i < countLecturer; i++)
+					{
+						temp[i] = lecturer[i];
+					}
+		
+					temp[countLecturer].setName(name);
+					temp[countLecturer].setCourseName(courseName);
+					temp[countLecturer].setCourseCode(courseCode);
+			
+					if (choose == 1)
+					{
+						temp[countLecturer].allocateUTM();
+						temp[countLecturer].setUTMCountry(country);
+						temp[countLecturer].setUTMState(state);
+						temp[countLecturer].setUTMKolej(kolej);
+						temp[countLecturer].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						temp[countLecturer].allocateOutside();
+						temp[countLecturer].setOutsideCountry(country);
+						temp[countLecturer].setOutsideState(state);
+						temp[countLecturer].setOutsideCity(city);
+						temp[countLecturer].setOutsideAddress(address);
+					}
+		
+					delete [] lecturer;
+			
+					countLecturer++;
+		
+					lecturer = temp;
+				}
+				catch (const char *msg)
+				{
+					lecturer = new Lecturer[1];
+					
+					lecturer[0].setName(name);
+					lecturer[0].setCourseName(courseName);
+					lecturer[0].setCourseCode(courseCode);
+				
+					if (choose == 1)
+					{
+						lecturer[0].allocateUTM();
+						lecturer[0].setUTMCountry(country);
+						lecturer[0].setUTMState(state);
+						lecturer[0].setUTMKolej(kolej);
+						lecturer[0].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						lecturer[0].allocateOutside();
+						lecturer[0].setOutsideCountry(country);
+						lecturer[0].setOutsideState(state);
+						lecturer[0].setOutsideCity(city);
+						lecturer[0].setOutsideAddress(address);
+					}
+					countLecturer++;
+				}
+			}
+			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+		}
+	}
+	catch (const char *clear)
+	{
+		char choice;
+		
+		cout << clear << endl;
+		cout << "Do you want to erase the data (y/n) : ";
+		cin >> choice;
+		
+		if (choice == 'y')
+		{
+			countLecturer = 0;
+			goto clear;
+		}
+	}
+}
+
+//============================================================//
+//						readStaff()							  //
+//					Input  = *staff, countStaff 		  	  //
+//					Output = Reading New Input for Staff      //
+//															  //
+// This Function will read new entry for Staff.				  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already and to check whether the //
+// program exist or not.									  //
+//============================================================//
+
+void readStaff(Staff *&staff, int &countStaff)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Reading New Staff Input" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Please be advised that the data follow this structure of data writing : " << endl << endl;
+	
+	cout << "NAME, DEPARTMENT, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
+	
+	cout << "Enter the name file you want to read from : ";
+	getline(cin, fileName);
+	
+	clear :
+	try
+	{
+		if (countStaff != 0)
+		{
+			throw "There is data saved in the program right now!";
+		}
+		
+		try
+		{
+			ifstream file (fileName.c_str());
+		
+			if (!file)
+			{
+				throw "Error! File unable to be Open!";
+			}
+			
+			string choice; // Variable for Choice
+			string name; // Temporary variable for Staff Name
+			string department; // Temporary variable for Staff Department
+			string country; // Temporary variable for Staff Country
+			string state; // Temporary variable for Staff State
+			string kolej; // Temporary variable for Staff Kolej
+			string block; // Temporary variable for Staff Block
+			string city; // Temporary variable for Staff City
+			string address; // Temporary variable for Staff Address
+	
+			while (getline(file, name, ','))
+			{
+				getline(file, department, ','); // Read Input for Department
+				getline(file, choice, ','); // Read Input to determine Choice
+			
+				int choose;
+				if (choice == "Inside")
+				{
+					choose = 1;
+				}
+				else
+				{
+					choose = 2;
+				}
+				//================================//
+				// This Switch statements will determine which data need to be added 
+				// based on the choice what the user input. 
+				//
+				// If the data input 1 it will automatically set the Country to Malaysia
+				// and the State to Johor Bahru.
+				// If the user input 2 it will ask all of the data needed.
+				//================================//
+				switch (choose)
+				{
+					//==================//
+					// Choice 1 is for the Staff who is staying inside UTM.
+					// The Country will be automatically set to Malaysia and the 
+					// state will be set to Johor Bahru, so the user will only need
+					// to add the Kolej and Block data.
+					//==================//
+		
+					case 1 :
+					country = "Malaysia";
+					state = "Johor Bahru";
+				
+					getline(file, kolej, ','); // Read Input for Kolej
+					getline(file, block, '\n'); // Read Input for Block
+					break;
+				
+					//==================//
+					// Choice 2 is for the Staff who is staying Outside UTM.
+					// The user will need to enter all of the required info from 
+					// country up to their address all by themselves, as it is not
+					// been set in the first time.
+					//==================//
+				
+					case 2 :
+					getline(file, country, ',');
+					getline(file, state, ',');
+					getline(file, city, ',');
+					getline(file, address, '\n');
+					break;
+				}
+	
+				try
+				{
+					if (staff == 0)
+					throw "Empty!";
+			
+					Staff *temp;
+		
+					temp = new Staff[countStaff+1];
+			
+					for (int i = 0; i < countStaff; i++)
+					{
+						temp[i] = staff[i];
+					}
+		
+					temp[countStaff].setName(name);
+					temp[countStaff].setDepartment(department);
+			
+					if (choose == 1)
+					{
+						temp[countStaff].allocateUTM();
+						temp[countStaff].setUTMCountry(country);
+						temp[countStaff].setUTMState(state);
+						temp[countStaff].setUTMKolej(kolej);
+						temp[countStaff].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						temp[countStaff].allocateOutside();
+						temp[countStaff].setOutsideCountry(country);
+						temp[countStaff].setOutsideState(state);
+						temp[countStaff].setOutsideCity(city);
+						temp[countStaff].setOutsideAddress(address);
+					}
+		
+					delete [] staff;
+			
+					countStaff++;
+		
+					staff = temp;
+				}
+				catch (const char *msg)
+				{
+					staff = new Staff[1];
+					
+					staff[0].setName(name);
+					staff[0].setDepartment(department);
+				
+					if (choose == 1)
+					{
+						staff[0].allocateUTM();
+						staff[0].setUTMCountry(country);
+						staff[0].setUTMState(state);
+						staff[0].setUTMKolej(kolej);
+						staff[0].setUTMBlock(block);
+					}
+					else if (choose == 2)
+					{
+						staff[0].allocateOutside();
+						staff[0].setOutsideCountry(country);
+						staff[0].setOutsideState(state);
+						staff[0].setOutsideCity(city);
+						staff[0].setOutsideAddress(address);
+					}
+					countStaff++;
+				}
+			}
+			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+		}
+	}
+	catch (const char *clear)
+	{
+		char choice;
+		
+		cout << clear << endl;
+		cout << "Do you want to erase the data (y/n) : ";
+		cin >> choice;
+		
+		if (choice == 'y')
+		{
+			countStaff = 0;
+			goto clear;
+		}
+	}
+}
+
+//============================================================//
+//						saveUndergraduate()					  //
+//					Input  = *undergraduate, countUG	      //
+//					Output = Reading New Input for UG         //
+//															  //
+// This Function will write entry for UG that have been stored//
+// in the program.											  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already						  //									  //
+//============================================================//
+
+
+void saveUndergraduate(Student *undergraduate, int countUG)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Saving Undergraduate Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the name file you want to save to (with .txt) : ";
+	getline(cin, fileName);
+	
+	try
+	{
+		if (countUG == 0)
+		throw "There is no Input!";
+		
+		ofstream out (fileName.c_str());
+		
+		for (int i = 0; i < countUG; i -= -1)
+		{
+			out << undergraduate[i].getName() << ",";
+			out << undergraduate[i].getMetric() << ",";
+			out << undergraduate[i].getCourseName() << ",";
+			out << undergraduate[i].getCourseCode() << ",";
+			
+			if (undergraduate[i].checkInside())
+			{
+				out << "Inside,";
+				out << undergraduate[i].getUTMCountry() << ",";
+				out << undergraduate[i].getUTMState() << ",";
+				out << undergraduate[i].getUTMKolej() << ",";
+				out << undergraduate[i].getUTMBlock() << endl;
+			}
+			else
+			{
+				out << "Outside,";
+				out << undergraduate[i].getOutsideCountry() << ",";
+				out << undergraduate[i].getOutsideState() << ",";
+				out << undergraduate[i].getOutsideCity() << ",";
+				out << undergraduate[i].getOutsideAddress() << endl;
+			}
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+//============================================================//
+//						savePostgraduate()					  //
+//					Input  = *postgraduate, countPG	  	      //
+//					Output = Reading New Input for PG         //
+//															  //
+// This Function will write entry for PG that have been stored//
+// in the program.											  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already						  //									  //
+//============================================================//
+
+
+void savePostgraduate(Student *postgraduate, int countPG)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Saving Postgraduate Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the name file you want to save to (with .txt) : ";
+	getline(cin, fileName);
+	
+	try
+	{
+		if (countPG == 0)
+		throw "There is no Input!";
+		
+		ofstream out (fileName.c_str());
+		
+		for (int i = 0; i < countPG; i -= -1)
+		{
+			out << postgraduate[i].getName() << ",";
+			out << postgraduate[i].getMetric() << ",";
+			out << postgraduate[i].getCourseName() << ",";
+			out << postgraduate[i].getCourseCode() << ",";
+			
+			if (postgraduate[i].checkInside())
+			{
+				out << "Inside,";
+				out << postgraduate[i].getUTMCountry() << ",";
+				out << postgraduate[i].getUTMState() << ",";
+				out << postgraduate[i].getUTMKolej() << ",";
+				out << postgraduate[i].getUTMBlock() << endl;
+			}
+			else
+			{
+				out << "Outside,";
+				out << postgraduate[i].getOutsideCountry() << ",";
+				out << postgraduate[i].getOutsideState() << ",";
+				out << postgraduate[i].getOutsideCity() << ",";
+				out << postgraduate[i].getOutsideAddress() << endl;
+			}
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+//============================================================//
+//						saveLecturer()					  	  //
+//					Input  = *lecturer, countLecturer  	      //
+//					Output = Reading New Input for Lecturer   //
+//															  //
+// This Function will write entry for Lecturer that have been //
+// stored in the program.									  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already						  //									  //
+//============================================================//
+
+
+void saveLecturer(Lecturer *lecturer, int countLecturer)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Saving Lecturer Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the name file you want to save to (with .txt) : ";
+	getline(cin, fileName);
+	
+	try
+	{
+		if (countLecturer == 0)
+		throw "There is no Input!";
+		
+		ofstream out (fileName.c_str());
+		
+		for (int i = 0; i < countLecturer; i -= -1)
+		{
+			out << lecturer[i].getName() << ",";
+			out << lecturer[i].getCourseName() << ",";
+			out << lecturer[i].getCourseCode() << ",";
+			
+			if (lecturer[i].checkInside())
+			{
+				out << "Inside,";
+				out << lecturer[i].getUTMCountry() << ",";
+				out << lecturer[i].getUTMState() << ",";
+				out << lecturer[i].getUTMKolej() << ",";
+				out << lecturer[i].getUTMBlock() << endl;
+			}
+			else
+			{
+				out << "Outside,";
+				out << lecturer[i].getOutsideCountry() << ",";
+				out << lecturer[i].getOutsideState() << ",";
+				out << lecturer[i].getOutsideCity() << ",";
+				out << lecturer[i].getOutsideAddress() << endl;
+			}
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+//============================================================//
+//						saveStaff()						  	  //
+//					Input  = *staff, countStaff  		      //
+//					Output = Reading New Input for Lecturer   //
+//															  //
+// This Function will write entry for Staff that have been	  //
+// stored in the program.									  //
+// It have a handle execption program to check wheter it's 	  //
+// empty or have been filled already						  //									  //
+//============================================================//
+
+
+void saveStaff(Staff *staff, int countStaff)
+{
+	string fileName; // Variable for File Name
+	
+	cin.ignore();
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Saving Staff Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the name file you want to save to (with .txt) : ";
+	getline(cin, fileName);
+	
+	try
+	{
+		if (countStaff == 0)
+		throw "There is no Input!";
+		
+		ofstream out (fileName.c_str());
+		
+		for (int i = 0; i < countStaff; i -= -1)
+		{
+			out << staff[i].getName() << ",";
+			out << staff[i].getDepartment() << ",";
+			
+			if (staff[i].checkInside())
+			{
+				out << "Inside,";
+				out << staff[i].getUTMCountry() << ",";
+				out << staff[i].getUTMState() << ",";
+				out << staff[i].getUTMKolej() << ",";
+				out << staff[i].getUTMBlock() << endl;
+			}
+			else
+			{
+				out << "Outside,";
+				out << staff[i].getOutsideCountry() << ",";
+				out << staff[i].getOutsideState() << ",";
+				out << staff[i].getOutsideCity() << ",";
+				out << staff[i].getOutsideAddress() << endl;
+			}
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
+	//															  //
+	//						MAIN FUNCTION						  //
+	//															  //
+	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
 int main ()
 {
@@ -2135,13 +3023,13 @@ int main ()
 						readUndergraduate(undergraduate, countUG); // Read the list of Undergraduate 
 						break;
 					case 2 :
-						//readPostgraduate(postgraduate, countPG); // Read the list of Postgraduate
+						readPostgraduate(postgraduate, countPG); // Read the list of Postgraduate
 						break;
 					case 3 :
-						//readLecturer(lecturer, countLecturer); // Read the list of Lecturer
+						readLecturer(lecturer, countLecturer); // Read the list of Lecturer
 						break;
 					case 4 :
-						//readStaff(staff, countStaff); // Read the list of Staff
+						readStaff(staff, countStaff); // Read the list of Staff
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
@@ -2178,10 +3066,10 @@ int main ()
 				switch (choiceSave)
 				{
 					case 1 :
-						//saveUndergraduate(undergraduate, countUG); // Save the list of Undergraduate 
+						saveUndergraduate(undergraduate, countUG); // Save the list of Undergraduate 
 						break;
 					case 2 :
-						//savePostgraduate(postgraduate, countPG); // Save the list of Postgraduate
+						savePostgraduate(postgraduate, countPG); // Save the list of Postgraduate
 						break;
 					case 3 :
 						//saveLecturer(lecturer, countLecturer); // Save the list of Lecturer
