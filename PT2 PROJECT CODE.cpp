@@ -740,7 +740,7 @@ class Staff : public Person // Inheritance from Person Class
 void menu ()
 {
 	cout << "===================" << endl;
-	cout << "UTM STUDENT TRACKER" << endl;
+	cout << "   TRACK ME @ UTM" << endl;
 	cout << "===================" << endl << endl;
 	
 	cout << "1. ADD DATA" << endl;
@@ -3527,13 +3527,13 @@ int main ()
 						deleteUndergraduate(undergraduate, countUG); // Delete Undergraduate Data Index
 						break;
 					case 2 :
-						deletePostgraduate(); // Delete Postgraduate Data Index
+						deletePostgraduate(postgraduate, countPG); // Delete Postgraduate Data Index
 						break;
 					case 3 :
-						deleteLecturer(); // Delete Lecturer Data Index
+						deleteLecturer(lecturer, countLecturer); // Delete Lecturer Data Index
 						break;
 					case 4 :
-						deleteStaff(); // Delete Staff Data index
+						deleteStaff(staff, countStaff); // Delete Staff Data index
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
