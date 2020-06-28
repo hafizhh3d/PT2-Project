@@ -1855,7 +1855,8 @@ void displayStaff(Staff *staff, int countStaff)
 
 //============================================================//
 //					searchUndergraduate()                     //
-//					Input  = google, countUG       			  //	
+//					Input  = google, *undergraduate,		  //
+//							 countUG		       			  //	
 //					Output = Displaying the search string     //
 //															  //
 // This Function will display the string that is searched by  //
@@ -1965,6 +1966,329 @@ void searchUndergraduate(string google, Student *undergraduate, int countUG)
 	}
 }
 
+//============================================================//
+//					searchPostgraduate()                      //
+//					Input  = google, *postgraduate,			  //
+//							 countPG		       			  //	
+//					Output = Displaying the search string     //
+//															  //
+// This Function will display the string that is searched by  //
+// the user in the Postgraduate data.						  //
+//============================================================//
+
+void searchPostgraduate(string google, Student *postgraduate, int countPG)
+{
+	int count = 0; // Variable for Counter
+	bool check = false; // Variable to check
+	
+	try
+	{
+		if (countPG == 0)
+		throw "Input is Empty!";
+		
+		for (int i = 0; i < countPG; i -= -1)
+		{
+			check = false;
+			
+			if (postgraduate[i].getName().find(google) < postgraduate[i].getName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (postgraduate[i].getMetric().find(google) < postgraduate[i].getMetric().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (postgraduate[i].getCourseName().find(google) < postgraduate[i].getCourseName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (postgraduate[i].getCourseCode().find(google) < postgraduate[i].getCourseCode().size())
+			{
+				check = true;
+				goto found;
+			}
+			 					
+			if (postgraduate[i].checkInside() == true)
+			{
+				if (postgraduate[i].getUTMCountry().find(google) < postgraduate[i].getUTMCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (postgraduate[i].getUTMState().find(google) < postgraduate[i].getUTMState().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (postgraduate[i].getUTMKolej().find(google) < postgraduate[i].getUTMKolej().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (postgraduate[i].getUTMBlock().find(google) < postgraduate[i].getUTMBlock().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+		
+			else
+			{
+				if (postgraduate[i].getOutsideCountry().find(google) < postgraduate[i].getOutsideCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (postgraduate[i].getOutsideState().find(google) < postgraduate[i].getOutsideState().size())
+				{
+					check = true;
+					goto found;	
+				}
+				if (postgraduate[i].getOutsideCity().find(google) < postgraduate[i].getOutsideCity().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (postgraduate[i].getOutsideAddress().find(google) < postgraduate[i].getOutsideAddress().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+					
+			found :
+			if (check)
+			{
+				postgraduate[i].showInfo();
+				cout << endl << endl;
+				count++;
+			}
+		}
+			
+		if (count == 0)
+		{
+			cout << "No Matched Input";
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+//============================================================//
+//						searchLecturer()                      //
+//					Input  = google, *lecturer,			      //
+//							 countLecturer	       			  //	
+//					Output = Displaying the search string     //
+//															  //
+// This Function will display the string that is searched by  //
+// the user in the Lecturer data.							  //
+//============================================================//
+
+void searchLecturer(string google, Lecturer *lecturer, int countLecturer)
+{
+	int count = 0; // Variable for Counter
+	bool check = false; // Variable to check
+	
+	try
+	{
+		if (countLecturer == 0)
+		throw "Input is Empty!";
+		
+		for (int i = 0; i < countLecturer; i -= -1)
+		{
+			check = false;
+			
+			if (lecturer[i].getName().find(google) < lecturer[i].getName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (lecturer[i].getCourseName().find(google) < lecturer[i].getCourseName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (lecturer[i].getCourseCode().find(google) < lecturer[i].getCourseCode().size())
+			{
+				check = true;
+				goto found;
+			}
+			 					
+			if (lecturer[i].checkInside() == true)
+			{
+				if (lecturer[i].getUTMCountry().find(google) < lecturer[i].getUTMCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (lecturer[i].getUTMState().find(google) < lecturer[i].getUTMState().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (lecturer[i].getUTMKolej().find(google) < lecturer[i].getUTMKolej().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (lecturer[i].getUTMBlock().find(google) < lecturer[i].getUTMBlock().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+		
+			else
+			{
+				if (lecturer[i].getOutsideCountry().find(google) < lecturer[i].getOutsideCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (lecturer[i].getOutsideState().find(google) < lecturer[i].getOutsideState().size())
+				{
+					check = true;
+					goto found;	
+				}
+				if (lecturer[i].getOutsideCity().find(google) < lecturer[i].getOutsideCity().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (lecturer[i].getOutsideAddress().find(google) < lecturer[i].getOutsideAddress().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+					
+			found :
+			if (check)
+			{
+				lecturer[i].showInfo();
+				cout << endl << endl;
+				count++;
+			}
+		}
+			
+		if (count == 0)
+		{
+			cout << "No Matched Input";
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
+
+//============================================================//
+//						searchStaff()                	      //
+//					Input  = google, *staff,			      //
+//							 countStaff		       			  //	
+//					Output = Displaying the search string     //
+//															  //
+// This Function will display the string that is searched by  //
+// the user in the Staff data.								  //
+//============================================================//
+
+void searchStaff(string google, Staff *staff, int countStaff)
+{
+	int count = 0; // Variable for Counter
+	bool check = false; // Variable to check
+	
+	try
+	{
+		if (countStaff == 0)
+		throw "Input is Empty!";
+		
+		for (int i = 0; i < countStaff; i -= -1)
+		{
+			check = false;
+			
+			if (staff[i].getName().find(google) < staff[i].getName().size())
+			{
+				check = true;
+				goto found;
+			}
+			if (staff[i].getDepartment().find(google) < staff[i].getDepartment().size())
+			{
+				check = true;
+				goto found;
+			}
+			 					
+			if (staff[i].checkInside() == true)
+			{
+				if (staff[i].getUTMCountry().find(google) < staff[i].getUTMCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (staff[i].getUTMState().find(google) < staff[i].getUTMState().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (staff[i].getUTMKolej().find(google) < staff[i].getUTMKolej().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (staff[i].getUTMBlock().find(google) < staff[i].getUTMBlock().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+		
+			else
+			{
+				if (staff[i].getOutsideCountry().find(google) < staff[i].getOutsideCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (staff[i].getOutsideState().find(google) < staff[i].getOutsideState().size())
+				{
+					check = true;
+					goto found;	
+				}
+				if (staff[i].getOutsideCity().find(google) < staff[i].getOutsideCity().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (staff[i].getOutsideAddress().find(google) < staff[i].getOutsideAddress().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+					
+			found :
+			if (check)
+			{
+				staff[i].showInfo();
+				cout << endl << endl;
+				count++;
+			}
+		}
+			
+		if (count == 0)
+		{
+			cout << "No Matched Input";
+		}
+	}
+	catch (const char *error)
+	{
+		cout << error << endl;
+	}
+}
 
 //============================================================//
 //						searchData()                     	  //
@@ -1991,6 +2315,30 @@ void searchData(int countUG, int countPG, int countLecturer, int countStaff, Stu
 	cout << endl;
 	
 	searchUndergraduate(google, undergraduate, countUG); // Calling Function searchUndergraduate
+	
+	cout << endl << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << "     POSTGRADUATE   " << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << endl;
+	
+	searchPostgraduate(google, postgraduate, countPG); // Calling Function searchPostgraduate
+	
+	cout << endl << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << "     	LECTURER      " << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << endl;
+	
+	searchLecturer(google, lecturer, countLecturer); // Calling Function searchLecturer
+	
+	cout << endl << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << "     	 STAFF        " << endl;
+	cout << "-===-===-===-===-===-" << endl;
+	cout << endl;
+	
+	searchStaff(google, staff, countStaff); // Calling Function searchStaff
 	
 	cout << endl << endl;
 }
