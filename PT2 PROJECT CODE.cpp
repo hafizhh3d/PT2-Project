@@ -6,9 +6,9 @@
 using namespace std;
 
 	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
-	//															  //
-	//				CLASS HEADER AND IMPLEMENTATION				  //
-	//															  //
+	//                                                            //
+	//               CLASS HEADER AND IMPLEMENTATION              //
+	//                                                            //
 	//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=//
 
 
@@ -158,11 +158,11 @@ class Department
 // Class Relation : Residence								  //
 // Relationship : Polymorphism, Inheritance					  //
 //															  //
-// Class Realtion : Lecturer, Student, Staff				  //
+// Class Relation : Lecturer, Student, Staff				  //
 // Realtionship : Aggregation								  // 
 //  														  //
 // This class store the UTM Address for Person Class.	  	  //
-// This class will have a aggregation realtionship with		  //
+// This class will have an aggregation realtionship with	  //
 // Person Class, so it can be exist or not depending on where //
 // the person live.											  //
 //============================================================//
@@ -211,7 +211,7 @@ class UTM : public Residence // Inheritance from Residence Class
 // Realtionship : Aggregation								  // 
 //  														  //
 // This class store the Outside Address for Person Class.  	  //
-// This class will have a aggregation realtionship with		  //
+// This class will have an aggregation realtionship with	  //
 // Person Class, so it can be exist or not depending on where //
 // the person live.											  //
 //============================================================//
@@ -737,7 +737,7 @@ class Staff : public Person // Inheritance from Person Class
 // This Function will display the menu for the user to choose //
 //============================================================//
 
-void menu () // Function to Show Menu
+void menu ()
 {
 	cout << "===================" << endl;
 	cout << "UTM STUDENT TRACKER" << endl;
@@ -804,24 +804,24 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 	cout << "Where do they live : "; // Asking the User for Choice of Living Place
 	cin >> choice; // User Input to determine Choice
 	
-	//================================//
-	// This Switch statements will determine which data need to be added 
-	// based on the choice what the user input. 
-	//
-	// If the user input 1 it will automatically set the Country to Malaysia
-	// and the State to Johor Bahru.
-	// If the user input 2 it will ask all of the data needed.
-	//================================//
+	//=-------------------------------------------------------------------------=//
+	// This Switch statements will determine which data need to be added 		 //
+	// based on the choice what the user input. 								 //
+	//																			 //
+	// If the user input 1 it will automatically set the Country to Malaysia	 //
+	// and the State to Johor Bahru.											 //
+	// If the user input 2 it will ask all of the data needed.					 //
+	//=-------------------------------------------------------------------------=//
 	
 	cin.ignore(); // Clearing the Buffer
 	switch (choice)
 	{
-		//==================//
-		// Choice 1 is for the Undergraduate who is staying inside UTM.
-		// The Country will be automatically set to Malaysia and the 
-		// state will be set to Johor Bahru, so the user will only need
-		// to add the Kolej and Block data.
-		//==================//
+		//===----------------------------------------------------------===//
+		// Choice 1 is for the Undergraduate who is staying inside UTM.	  //
+		// The Country will be automatically set to Malaysia and the      //
+		// state will be set to Johor Bahru, so the user will only need   //
+		// to add the Kolej and Block data. 							  //
+		//===----------------------------------------------------------===//
 		
 		case 1 :
 			country = "Malaysia";
@@ -833,32 +833,40 @@ void addUndergraduate(Student *&undergraduate, int &countUG)
 			getline(cin, block); // User Input for Block
 			break;
 			
-		//==================//
-		// Choice 2 is for the Undergraduate who is staying Outside UTM.
-		// The user will need to enter all of the required info from 
-		// country up to their address all by themselves, as it is not
-		// been set in the first time.
-		//==================//
+		//===----------------------------------------------------------===//
+		// Choice 2 is for the Undergraduate who is staying Outside UTM.  //
+		// The user will need to enter all of the required info from 	  //
+		// country up to their address all by themselves, as it is not	  //
+		// been set in the first time.									  //
+		//===----------------------------------------------------------===//
+		
 		case 2 :
 			cout << "Country : ";
-			getline(cin, country);
+			getline(cin, country); // User Input for Country
 			cout << "State : ";
-			getline(cin, state);
+			getline(cin, state); // User Input for State
 			cout << "City : ";
 			getline(cin, city);
 			cout << "Address : ";
 			getline(cin, address);
 			break;
-		//==================//
-		// The default option is when the user input the choice that
-		// is not 1 or 2. It will terminate the addUndergraduate
-		// function and go back to the main menu.
-		//==================// 
+			
+		//===----------------------------------------------------------===//
+		// The default option is when the user input the choice that	  //
+		// is not 1 or 2. It will terminate the addUndergraduate		  //
+		// function and go back to the main menu.						  //
+		//===----------------------------------------------------------===//
+		
 		default :
 			cout << "Input Not Recognized!" << endl;
 			cout << "Going back to Main Menu..." << endl;
 			return;
 	}
+	
+	//===----------------------------------------------------------===//
+	// Exception Handling to check if the Undergaduate have data 	  //
+	// stored already or not in the program.                          //
+	//===----------------------------------------------------------===//
 	
 	try
 	{
@@ -3516,23 +3524,16 @@ int main ()
 				switch (choiceDelete)
 				{
 					case 1 :
-						cout << "DELETE UNDERGADUATESTUDENT DONE!!!" << endl;
 						deleteUndergraduate(undergraduate, countUG); // Delete Undergraduate Data Index
 						break;
 					case 2 :
-						cout << "DELETE POSTGRADUATESTUDENT DONE!!!" << endl;
-						// deletePostgraduate();
-						// Function Object to delete Postgraduate Student
+						deletePostgraduate(); // Delete Postgraduate Data Index
 						break;
 					case 3 :
-						cout << "DELETE LECTURER DONE!!!" << endl;
-						// deleteLecturer();
-						// Function Object to delete Lecturer
+						deleteLecturer(); // Delete Lecturer Data Index
 						break;
 					case 4 :
-						cout << "DELETE STAFF DONE!!!" << endl;
-						// deleteStaff();
-						// Function Object to delete Staff
+						deleteStaff(); // Delete Staff Data index
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
