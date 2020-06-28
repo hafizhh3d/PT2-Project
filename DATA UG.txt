@@ -10,7 +10,7 @@ Gregor Stewart,A19EC68,Software,SECJ,Inside,KTR,K11
 Britney Krause,A19EC86,Multimedia,SECV,Inside,KTDI,M02
 Archie Croft,A19EC78,Data,SECB,Inside,KTR,K13
 Brandon Oneil,A19EC64,Multimedia,SECV,Outside,Malaysia,Pahang,Kuantan,Brandon House
-Artur Ortiz,A19EC21,Multimedia,SECV,Outside,Malaysia,Pahang,Kuala Lipis, Artur House
+Artur Ortiz,A19EC21,Multimedia,SECV,Outside,Malaysia,Pahang,Kuala Lipis,Artur House
 Sumayya Armitage,A19EC57,Data,SECB,Outside,Malaysia,Melaka,Melaka,Summaya House
 Haroon Guzman,A19EC85,Data,SECB,Outside,Malaysia,Selangor,Petaling Jaya,Haroon House
 Menna Melia,A19EC99,Data,SECB,Outside,Malaysia,Perak,Taiping,Menna House

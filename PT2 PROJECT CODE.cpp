@@ -378,7 +378,7 @@ class Lecturer : public Person // Inheritance from Person Class
 		{
 			bool inside = false;
 			
-			if (address == 0);
+			if (address == 0)
 			inside = true;
 			
 			return inside;
@@ -545,7 +545,7 @@ class Student : public Person // Inheritance from Person Class
 		{
 			bool inside = false;
 			
-			if (address == 0);
+			if (address == 0)
 			inside = true;
 			
 			return inside;
@@ -695,7 +695,7 @@ class Staff : public Person // Inheritance from Person Class
 		{
 			bool inside = false;
 			
-			if (address == 0);
+			if (address == 0)
 			inside = true;
 			
 			return inside;
@@ -1442,6 +1442,278 @@ void addStaff(Staff *&staff, int &countStaff)
 }
 
 //============================================================//
+//					deleteUdergraduate()                      //
+//					Input  = *undergraduate, countUG          //
+//					Output = Displaying Undergradaute Data    //
+//															  //
+// This Function will delete the Undergraduate data that have //
+// the same index as the user wanted.                         //
+//============================================================//
+
+void deleteUndergraduate(Student *&undergraduate, int &countUG)
+{
+	int choice; // Variable for Choice
+	int count; // Variable for Counter
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Deleting Undergraduate Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the Data Number you want to delete : ";
+	cin >> choice;
+	choice--;
+	
+	try
+	{
+		if (countUG == 0)
+		throw "There is no input!";
+		
+		Student *temp;
+		temp = new Student[countUG];
+		
+		count = 0;	
+		for (int i = 0; i < countUG; i -= -1)
+		{
+			if (i != choice)
+			{
+				temp[count] = undergraduate[i];
+				count++;
+			}
+		
+		}
+		
+		try
+		{
+			if (countUG == count)
+			throw "Error! Index not found";
+			
+			delete[] undergraduate;
+			
+			countUG--;
+			
+			undergraduate = temp;
+			
+			cout << endl << "Data Have been Successfully Deleted!" << endl;
+			cout << "Deleted Data " << ++choice << endl;
+ 		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+			delete [] temp;
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << msg << endl;
+	}
+}
+
+//============================================================//
+//					deletePostgraduate()                      //
+//					Input  = *postgraduate, countPG           //
+//					Output = Displaying Postgraduate Data     //
+//															  //
+// This Function will delete the Postgraduate data that have  //
+// the same index as the user wanted.                         //
+//============================================================//
+
+void deletePostgraduate(Student *&postgraduate, int &countPG)
+{
+	int choice; // Variable for Choice
+	int count; // Variable for Counter
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Deleting Postgraduate Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the Data Number you want to delete : ";
+	cin >> choice;
+	choice--;
+	
+	try
+	{
+		if (countPG == 0)
+		throw "There is no input!";
+		
+		Student *temp;
+		temp = new Student[countPG];
+		
+		count = 0;	
+		for (int i = 0; i < countPG; i -= -1)
+		{
+			if (i != choice)
+			{
+				temp[count] = postgraduate[i];
+				count++;
+			}
+		
+		}
+		
+		try
+		{
+			if (countPG == count)
+			throw "Error! Index not found";
+			
+			delete[] postgraduate;
+			
+			countPG--;
+			
+			postgraduate = temp;
+			
+			cout << endl << "Data Have been Successfully Deleted!" << endl;
+			cout << "Deleted Data " << ++choice << endl;
+ 		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+			delete [] temp;
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << msg << endl;
+	}
+}
+
+//============================================================//
+//						deleteLecturer()                      //
+//					Input  = *lecturer, countLecturer         //
+//					Output = Displaying Lecturer Data 	      //
+//															  //
+// This Function will delete the Lecturer data that have	  //
+// the same index as the user wanted.                         //
+//============================================================//
+
+void deleteLecturer(Lecturer *&lecturer, int &countLecturer)
+{
+	int choice; // Variable for Choice
+	int count; // Variable for Counter
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Deleting Lecturer Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the Data Number you want to delete : ";
+	cin >> choice;
+	choice--;
+	
+	try
+	{
+		if (countLecturer == 0)
+		throw "There is no input!";
+		
+		Lecturer *temp;
+		temp = new Lecturer[countLecturer];
+		
+		count = 0;	
+		for (int i = 0; i < countLecturer; i -= -1)
+		{
+			if (i != choice)
+			{
+				temp[count] = lecturer[i];
+				count++;
+			}
+		
+		}
+		
+		try
+		{
+			if (countLecturer == count)
+			throw "Error! Index not found";
+			
+			delete[] lecturer;
+			
+			countLecturer--;
+			
+			lecturer = temp;
+			
+			cout << endl << "Data Have been Successfully Deleted!" << endl;
+			cout << "Deleted Data " << ++choice << endl;
+ 		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+			delete [] temp;
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << msg << endl;
+	}
+}
+
+//============================================================//
+//						deleteStaff() 	                      //
+//					Input  = *staff, countStaff		          //
+//					Output = Displaying Staff Data 		      //
+//															  //
+// This Function will delete the Staff data that have	  	  //
+// the same index as the user wanted.                         //
+//============================================================//
+
+void deleteStaff(Staff *&staff, int &countStaff)
+{
+	int choice; // Variable for Choice
+	int count; // Variable for Counter
+	
+	cout << endl << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl;
+	cout << "Deleting Staff Data" << endl;
+	cout << "--==--==--==--==--==--==--==--==--" << endl << endl;
+	
+	cout << "Enter the Data Number you want to delete : ";
+	cin >> choice;
+	choice--;
+	
+	try
+	{
+		if (countStaff == 0)
+		throw "There is no input!";
+		
+		Staff *temp;
+		temp = new Staff[countStaff];
+		
+		count = 0;	
+		for (int i = 0; i < countStaff; i -= -1)
+		{
+			if (i != choice)
+			{
+				temp[count] = staff[i];
+				count++;
+			}
+		
+		}
+		
+		try
+		{
+			if (countStaff == count)
+			throw "Error! Index not found";
+			
+			delete[] staff;
+			
+			countStaff--;
+			
+			staff = temp;
+			
+			cout << endl << "Data Have been Successfully Deleted!" << endl;
+			cout << "Deleted Data " << ++choice << endl;
+ 		}
+		catch (const char *error)
+		{
+			cout << error << endl;
+			delete [] temp;
+		}
+	}
+	catch (const char *msg)
+	{
+		cout << msg << endl;
+	}
+}
+
+//============================================================//
 //					displayUdergraduate()                     //
 //					Input  = *undergraduate, countUG          //
 //					Output = Displaying Undergradaute Data    //
@@ -1592,7 +1864,7 @@ void displayStaff(Staff *staff, int countStaff)
 
 void searchUndergraduate(string google, Student *undergraduate, int countUG)
 {
-	int count = 0; // Variable for counter
+	int count = 0; // Variable for Counter
 	bool check = false; // Variable to check
 	
 	try
@@ -1624,68 +1896,55 @@ void searchUndergraduate(string google, Student *undergraduate, int countUG)
 				check = true;
 				goto found;
 			}
-			
-			/*if (undergraduate[i].getOutsideCountry().empty())
+			 					
+			if (undergraduate[i].checkInside() == true)
 			{
-				cout << "CTACHT" << endl;
-				cout << undergraduate[i].getOutsideCountry();
-				cout << endl;
-				goto utm;
-			}
-			/*else if (!undergraduate[i].getUTMKolej().empty())
-			{
-				cout << "GOT" << endl;
-				cout << undergraduate[i].getUTMKolej();
-				cout << endl;
-				goto utm;
-			}*/
-			cout << "GOT" << endl;
-			
-			/*utm :
-			if (undergraduate[i].getUTMCountry().find(google) < undergraduate[i].getUTMCountry().size())
-			{
-				check = true;
-				goto found;
-			}
-			if (undergraduate[i].getUTMState().find(google) < undergraduate[i].getUTMState().size())
-			{
-				check = true;
-				goto found;
-			}
-			if (undergraduate[i].getUTMKolej().find(google) < undergraduate[i].getUTMKolej().size())
-			{
-				check = true;
-				goto found;
-			}
-			if (undergraduate[i].getUTMBlock().find(google) < undergraduate[i].getUTMBlock().size())
-			{
-				check = true;
-				goto found;
-			}
-			//goto found;*/
-		
-			outside :
-			if (undergraduate[i].getOutsideCountry().find(google) < undergraduate[i].getOutsideCountry().size())
-			{
-				check = true;
-				goto found;
-			}
-			if (undergraduate[i].getOutsideState().find(google) < undergraduate[i].getOutsideState().size())
-			{
-				check = true;
-				goto found;	
-			}
-			if (undergraduate[i].getOutsideCity().find(google) < undergraduate[i].getOutsideCity().size())
-			{
-				check = true;
-				goto found;
-			}
-			if (undergraduate[i].getOutsideAddress().find(google) < undergraduate[i].getOutsideAddress().size())
-			{
-				check = true;
-				goto found;
+				if (undergraduate[i].getUTMCountry().find(google) < undergraduate[i].getUTMCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (undergraduate[i].getUTMState().find(google) < undergraduate[i].getUTMState().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (undergraduate[i].getUTMKolej().find(google) < undergraduate[i].getUTMKolej().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (undergraduate[i].getUTMBlock().find(google) < undergraduate[i].getUTMBlock().size())
+				{
+					check = true;
+					goto found;
+				}
 			}
 		
+			else
+			{
+				if (undergraduate[i].getOutsideCountry().find(google) < undergraduate[i].getOutsideCountry().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (undergraduate[i].getOutsideState().find(google) < undergraduate[i].getOutsideState().size())
+				{
+					check = true;
+					goto found;	
+				}
+				if (undergraduate[i].getOutsideCity().find(google) < undergraduate[i].getOutsideCity().size())
+				{
+					check = true;
+					goto found;
+				}
+				if (undergraduate[i].getOutsideAddress().find(google) < undergraduate[i].getOutsideAddress().size())
+				{
+					check = true;
+					goto found;
+				}
+			}
+					
 			found :
 			if (check)
 			{
@@ -1761,7 +2020,7 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 	
 	cout << "NAME, METRIC, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
 	
-	cout << "Enter the name file you want to read from : ";
+	cout << "Enter the name file you want to read from (with .txt) : ";
 	getline(cin, fileName);
 	
 	clear :
@@ -1884,7 +2143,7 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 						temp[countUG].setOutsideCity(city);
 						temp[countUG].setOutsideAddress(address);
 					}
-		
+					
 					delete [] undergraduate;
 			
 					countUG++;
@@ -1919,7 +2178,8 @@ void readUndergraduate(Student *&undergraduate, int &countUG)
 					countUG++;
 				}
 			}
-			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+			
+			cout << endl << "Data Have been Succesfully read!" << endl;
 		}
 		catch (const char *error)
 		{
@@ -1967,7 +2227,7 @@ void readPostgraduate(Student *&postgraduate, int &countPG)
 	
 	cout << "NAME, METRIC, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
 	
-	cout << "Enter the name file you want to read from : ";
+	cout << "Enter the name file you want to read from (with .txt) : ";
 	getline(cin, fileName);
 	
 	clear :
@@ -2125,7 +2385,7 @@ void readPostgraduate(Student *&postgraduate, int &countPG)
 					countPG++;
 				}
 			}
-			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+			cout << endl << "Data Have been Succesfully read!" << endl;
 		}
 		catch (const char *error)
 		{
@@ -2173,7 +2433,7 @@ void readLecturer(Lecturer *&lecturer, int &countLecturer)
 	
 	cout << "NAME, COURSE NAME, COURSE CODE, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
 	
-	cout << "Enter the name file you want to read from : ";
+	cout << "Enter the name file you want to read from (with .txt) : ";
 	getline(cin, fileName);
 	
 	clear :
@@ -2327,7 +2587,7 @@ void readLecturer(Lecturer *&lecturer, int &countLecturer)
 					countLecturer++;
 				}
 			}
-			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+			cout << endl << "Data Have been Succesfully read!" << endl;
 		}
 		catch (const char *error)
 		{
@@ -2375,7 +2635,7 @@ void readStaff(Staff *&staff, int &countStaff)
 	
 	cout << "NAME, DEPARTMENT, OUTSIDE/INSIDE, COUNTRY/(IF INSIDE SKIP THIS), STATE/(IF INSIDE SKIP THIS), CITY/KOLEJ, ADDRESS/BLOCK" << endl << endl;
 	
-	cout << "Enter the name file you want to read from : ";
+	cout << "Enter the name file you want to read from (with .txt) : ";
 	getline(cin, fileName);
 	
 	clear :
@@ -2525,7 +2785,7 @@ void readStaff(Staff *&staff, int &countStaff)
 					countStaff++;
 				}
 			}
-			cout << endl << endl << "Data Have been Succesfully read!" << endl;
+			cout << endl << "Data Have been Succesfully read!" << endl;
 		}
 		catch (const char *error)
 		{
@@ -2590,8 +2850,6 @@ void saveUndergraduate(Student *undergraduate, int countUG)
 			if (undergraduate[i].checkInside())
 			{
 				out << "Inside,";
-				out << undergraduate[i].getUTMCountry() << ",";
-				out << undergraduate[i].getUTMState() << ",";
 				out << undergraduate[i].getUTMKolej() << ",";
 				out << undergraduate[i].getUTMBlock() << endl;
 			}
@@ -2604,6 +2862,8 @@ void saveUndergraduate(Student *undergraduate, int countUG)
 				out << undergraduate[i].getOutsideAddress() << endl;
 			}
 		}
+		
+		cout << endl << "Data Have been Succesfully Saved!" << endl;
 	}
 	catch (const char *error)
 	{
@@ -2653,8 +2913,6 @@ void savePostgraduate(Student *postgraduate, int countPG)
 			if (postgraduate[i].checkInside())
 			{
 				out << "Inside,";
-				out << postgraduate[i].getUTMCountry() << ",";
-				out << postgraduate[i].getUTMState() << ",";
 				out << postgraduate[i].getUTMKolej() << ",";
 				out << postgraduate[i].getUTMBlock() << endl;
 			}
@@ -2667,6 +2925,8 @@ void savePostgraduate(Student *postgraduate, int countPG)
 				out << postgraduate[i].getOutsideAddress() << endl;
 			}
 		}
+		
+		cout << endl << "Data Have been Succesfully Saved!" << endl;
 	}
 	catch (const char *error)
 	{
@@ -2715,8 +2975,6 @@ void saveLecturer(Lecturer *lecturer, int countLecturer)
 			if (lecturer[i].checkInside())
 			{
 				out << "Inside,";
-				out << lecturer[i].getUTMCountry() << ",";
-				out << lecturer[i].getUTMState() << ",";
 				out << lecturer[i].getUTMKolej() << ",";
 				out << lecturer[i].getUTMBlock() << endl;
 			}
@@ -2729,6 +2987,8 @@ void saveLecturer(Lecturer *lecturer, int countLecturer)
 				out << lecturer[i].getOutsideAddress() << endl;
 			}
 		}
+		
+		cout << endl << "Data Have been Succesfully Saved!" << endl;
 	}
 	catch (const char *error)
 	{
@@ -2776,8 +3036,6 @@ void saveStaff(Staff *staff, int countStaff)
 			if (staff[i].checkInside())
 			{
 				out << "Inside,";
-				out << staff[i].getUTMCountry() << ",";
-				out << staff[i].getUTMState() << ",";
 				out << staff[i].getUTMKolej() << ",";
 				out << staff[i].getUTMBlock() << endl;
 			}
@@ -2790,6 +3048,8 @@ void saveStaff(Staff *staff, int countStaff)
 				out << staff[i].getOutsideAddress() << endl;
 			}
 		}
+		
+		cout << endl << "Data Have been Succesfully Saved!" << endl;
 	}
 	catch (const char *error)
 	{
@@ -2909,8 +3169,7 @@ int main ()
 				{
 					case 1 :
 						cout << "DELETE UNDERGADUATESTUDENT DONE!!!" << endl;
-						// deleteUndergraduate();
-						// Function Object to delete Undergraduate Student
+						deleteUndergraduate(undergraduate, countUG); // Delete Undergraduate Data Index
 						break;
 					case 2 :
 						cout << "DELETE POSTGRADUATESTUDENT DONE!!!" << endl;
@@ -3072,10 +3331,10 @@ int main ()
 						savePostgraduate(postgraduate, countPG); // Save the list of Postgraduate
 						break;
 					case 3 :
-						//saveLecturer(lecturer, countLecturer); // Save the list of Lecturer
+						saveLecturer(lecturer, countLecturer); // Save the list of Lecturer
 						break;
 					case 4 :
-						//saveStaff(staff, countStaff); // Save the list of Staff
+						saveStaff(staff, countStaff); // Save the list of Staff
 						break;
 					default :
 						cout << "Input Not Recognized!!!!" << endl;
